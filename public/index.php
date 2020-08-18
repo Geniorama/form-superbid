@@ -8,7 +8,7 @@
 <body>
     <form action="../controllers/upload.php" method="POST" enctype="multipart/form-data">
         <input type="text" name="nombre" id="" placeholder="Nombre">
-        <input type="number" name="documento" id="" placeholder="Documento">
+        <input type="number" name="documento" id="documento" placeholder="Documento">
         <input type="file" name="file" id="">
         <input type="submit" name="btnenviar" value="Enviar">
 
