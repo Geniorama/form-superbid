@@ -116,7 +116,7 @@ if (!empty($_FILES)) {
         }
         
        echo "Archivo subido";
-       //header('Location:/gracias.html');
+       header('Location:http://localhost/form_superbid/public/gracias.html');
     } catch (\exception $e) {
         print_r($e);
     }
