@@ -2,6 +2,7 @@
 
 require_once "./../config/config.php";
 require_once "../terceros/dropbox/vendor/autoload.php";
+require_once "./../helpers/helpers.php";
 
 use Kunnu\Dropbox\Dropbox;
 use Kunnu\Dropbox\DropboxApp;
@@ -27,57 +28,54 @@ if (!empty($_FILES)) {
 
     $nombreSubasta = false;
 
+    //Renombrando archivos
+    $nombrecarpeta = "/". $tipoDocumento . "_" .$numDocumento;
+
     switch ($tiposArchivos) {
         case 'registro':
-            $nombreCarpetaReg = "Documentos registro";
-
-            //Documento identidad
-            $doc_identidad = $_FILES['rg-field-documento']['tmp_name'];
-            if($doc_identidad){
-                $ext_doc_identidad = explode(".",$_FILES['rg-field-documento']['name']);
-                $ext_doc_identidad = end($ext_doc_identidad);
-            }
-
-            //RUT
-            $doc_rut = $_FILES['rg-field-rut']['tmp_name'];
-            if($doc_rut){
-                $ext_doc_rut = explode(".",$_FILES['rg-field-rut']['name']);
-                $ext_doc_rut = end($ext_doc_rut);
-            }
+            $field_documento = tempFile('rg-field-documento', 'cedula_ciudadania');
+            $field_rut = tempFile('rg-field-rut', 'nit');
 
             if($tipoPersona == "p-juridica"){
-                //Camara de comercio
-                $doc_camara = $_FILES['rg-field-camara-comercio']['tmp_name'];
-                if ($doc_camara) {
-                    $ext_doc_camara = explode(".",$_FILES['rg-field-camara-comercio']['name']);
-                    $ext_doc_camara = end($ext_doc_camara);
-                }
-
-                //Representante legal
-                $doc_rep = $_FILES['rg-field-cedula-rep']['tmp_name'];
-                if ($doc_rep) {
-                    $ext_doc_rep = explode(".",$_FILES['rg-field-camara-comercio']['name']);
-                    $ext_doc_rep = end($ext_doc_rep);
-                }
+                $field_camara_comercio = tempFile('rg-field-camara-comercio', 'camara_comercio');
+                $field_rep = tempFile('rg-field-cedula-rep', 'cedula_rep_legal');
             }
+
+            $campos_registro = array($field_documento, $field_rut);
             break;
 
         case 'pagos':
             $nombreSubasta = $_POST["rg-nombre-subasta"];
             $nombreCarpetaReg = "Documentos pagos";
 
-            $carta_tercero = $_FILES['rg-field-carta-tercero']['tmp_name'];
-            $ext_carta_tercero = explode(".",$_FILES['rg-field-carta-tercero']['name']);
-            $ext_carta_tercero = end($ext_carta_tercero);
+            $field_carta_tercero = tempFile('rg-field-carta-tercero', 'carta_tercero');
+            $field_soporte_pago_lote = tempFile('rg-field-soporte-pago-lote', 'soporte_pago_lote');
+            $field_soporte_pago_comision = tempFile('rg-field-soporte-pago-comision', 'soporte_pago_comision');
+            $field_soporte_pago_traspasos = tempFile('rg-field-soporte-pago-traspasos', 'soporte_pago_traspasos');
+            $field_soporte_pago_fianza = tempFile('rg-field-soporte-pago-fianza', 'soporte_pago_fianza');
+
+            $campos_pagos = array($field_carta_tercero, $field_soporte_pago_lote, $field_soporte_pago_comision, $field_soporte_pago_traspasos, $field_soporte_pago_fianza);
 
             break;
         
         case 'garantia':
-            $nombreCarpetaReg = "Documentos garantia";
+            $nombreSubasta = $_POST["rg-nombre-subasta"];
+            $field_soporte_garantia = tempFile('rg-field-soporte-garantia', 'soporte_garantia');
+            $field_cert_bancaria = tempFile('rg-field-certificacion-bancaria', 'certificacion_bancaria');
+            $field_docs_garantias = tempFile('rg-field-documentos-garantias', 'documentos_garantias');
+
+            $campos_garantia = array($field_soporte_garantia, $field_cert_bancaria, $field_docs_garantias);
+            
             break;
 
         case 'retiros':
-            $nombreCarpetaReg = "Documentos retiros";
+            $nombreSubasta = $_POST["rg-nombre-subasta"];
+            $field_planilla_aportes = tempFile('rg-field-planilla-aportes', 'planilla_aportes');
+            $field_poliza = tempFile('rg-field-poliza', 'poliza');
+            $field_rtm = tempFile('rg-field-rtm', 'rtm');
+            $field_soat = tempFile('rg-field-soat', 'soat');
+
+            $campos_retiros = array($field_planilla_aportes, $field_poliza, $field_rtm, $field_soat);
             break;
         
         default:
@@ -85,25 +83,49 @@ if (!empty($_FILES)) {
             break;
     }
 
+    if(!function_exists('uploadFile')){
+        function uploadFile($field, $folder){
+            global $dropbox;
+            global $nombrecarpeta;
+            if($field){
+                $file = $dropbox->simpleUpload($field["document"], $nombrecarpeta . "/" . $folder . $field["name_document"],['autorename' => true]);
+            }
+        }
+    }
 
-    //Renombrando archivos
-    $nombrecarpeta = "/". $tipoDocumento . "_" .$numDocumento;
-
-    $nombreCedula = "/cedula_ciudadania.".$ext_doc_identidad;
-    $nombreRut = "/rut.".$ext_doc_rut;
+    
 
     try {
         //$folder = $dropbox->createFolder("/". $documento);
         if($numDocumento){
-           $file = $dropbox->simpleUpload($doc_identidad, $nombrecarpeta . "/" . $nombreCarpetaReg . $nombreCedula,['autorename' => true]);
-           $file2 = $dropbox->simpleUpload($doc_rut, $nombrecarpeta . "/" . $nombreCarpetaReg . $nombreRut,['autorename' => true]);
-           if($nombreSubasta){
-             $file3 = $dropbox->simpleUpload($tempfile2, $nombrecarpeta . "/" . $nombreSubasta . "/" . $carpetaGarantias . $nombredropbox2,['autorename' => true]);
-           }
+            foreach ($campos_registro as $campo) {
+                uploadFile($campo,"Documentos registro");
+            }
+
+            if($nombreSubasta){
+                if($campos_pagos){
+                    foreach ($campos_pagos as $campo_pago) {
+                        uploadFile($campo_pago, $nombreSubasta . "/Documentos pagos");
+                    }
+                }
+
+                if($campos_garantia){
+                    foreach ($campos_garantia as $campo_garantia) {
+                        uploadFile($campo_garantia, $nombreSubasta . "/Documentos garantia");
+                    }
+                }
+
+                if($campos_retiros){
+                    foreach ($campos_retiros as $campo_retiros) {
+                        uploadFile($campo_retiros, $nombreSubasta . "/Documentos retiros");
+                    }
+                }
+            }
         }
         
         
        echo "Archivo subido";
+       //header('Location:/gracias.html');
     } catch (\exception $e) {
         print_r($e);
     }

@@ -7,7 +7,7 @@
 </head>
 <body>
     <form action="../controllers/upload.php" method="POST" enctype="multipart/form-data">
-        <input type="text" name="nombre_subasta" id="nombre_subasta" placeholder="Nombre subasta">
+        <input type="text" name="rg-nombre-subasta" id="rg-nombre-subasta" placeholder="Nombre subasta">
         <select name="rg-tipo-persona" id="rg-tipo-persona">
             <option value="p-juridica">Persona Juridica</option>
             <option value="p-natural">Persona Natural</option>
@@ -20,10 +20,15 @@
         <input type="number" name="rg-num-doc" id="documento" placeholder="Documento">
         <input type="file" name="rg-field-documento" id="rg-field-documento">
         <input type="file" name="rg-field-rut" id="rg-field-rut">
+        <input type="file" name="rg-field-carta-tercero" id="rg-field-carta-tercero">
+        <input type="file" name="rg-field-soporte-pago-lote" id="rg-field-soporte-pago-lote">
+
+        <input type="radio" name="rg-type-document" id="rg-type-registro" value="registro">
+        <label for="rg-type-registro">Registro</label>
+        <br>
+        <input type="radio" name="rg-type-document" id="rg-type-pagos" value="pagos">
+        <label for="rg-type-pagos">Pagos</label>
         <input type="submit" name="btnenviar" value="Enviar">
-
-        <input type="radio" name="rg-type-document" id="rg-type-document" value="registro">
-
     </form>
 </body>
 </html>
