@@ -39,9 +39,12 @@ if (!empty($_FILES)) {
             if($tipoPersona == "p-juridica"){
                 $field_camara_comercio = tempFile('rg-field-camara-comercio', 'camara_comercio');
                 $field_rep = tempFile('rg-field-cedula-rep', 'cedula_rep_legal');
+                $campos_registro = array($field_documento, $field_rut, $field_camara_comercio, $field_rep);
+            } else{
+                $campos_registro = array($field_documento, $field_rut);
             }
 
-            $campos_registro = array($field_documento, $field_rut);
+            
             break;
 
         case 'pagos':
