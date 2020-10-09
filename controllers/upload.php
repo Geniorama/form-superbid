@@ -83,17 +83,6 @@ if (!empty($_FILES)) {
             break;
     }
 
-    if(!function_exists('uploadFile')){
-        function uploadFile($field, $folder){
-            global $dropbox;
-            global $nombrecarpeta;
-            if($field){
-                $file = $dropbox->simpleUpload($field["document"], $nombrecarpeta . "/" . $folder . $field["name_document"],['autorename' => true]);
-            }
-        }
-    }
-
-    
 
     try {
         //$folder = $dropbox->createFolder("/". $documento);
@@ -122,7 +111,6 @@ if (!empty($_FILES)) {
                 }
             }
         }
-        
         
        echo "Archivo subido";
        //header('Location:/gracias.html');
