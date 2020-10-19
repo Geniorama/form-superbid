@@ -101,19 +101,19 @@ if (!empty($_FILES)) {
                 echo $nombreSubasta;
                 if($campos_pagos){
                     foreach ($campos_pagos as $campo_pago) {
-                        uploadFile($campo_pago, $nombreSubasta . "/Documentos pagos");
+                        uploadFile($campo_pago, "subasta_" . $nombreSubasta . "/Documentos pagos");
                     }
                 }
 
                 if($campos_garantia){
                     foreach ($campos_garantia as $campo_garantia) {
-                        uploadFile($campo_garantia, $nombreSubasta . "/Documentos garantia");
+                        uploadFile($campo_garantia, "subasta_" . $nombreSubasta . "/Documentos garantia");
                     }
                 }
 
                 if($campos_retiros){
                     foreach ($campos_retiros as $campo_retiros) {
-                        uploadFile($campo_retiros, $nombreSubasta . "/Documentos retiros");
+                        uploadFile($campo_retiros, "subasta_" . $nombreSubasta . "/Documentos retiros");
                     }
                 }
             }
