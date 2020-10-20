@@ -48,10 +48,9 @@ if (!empty($_FILES)) {
             }
         }
         
-       echo "Archivo subido";
-       header('Location:http://localhost/form-superbid/public/gracias.html');
+       header('Location:http://geniorama.site/demo/superbid-form/public/gracias.html');
     } catch (\exception $e) {
        //print_r($e);
-       header('Location:http://localhost/form-superbid/public/error.html');
+       header('Location:http://geniorama.site/demo/superbid-form/public/error.html');
     }
 }

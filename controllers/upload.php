@@ -98,7 +98,6 @@ if (!empty($_FILES)) {
             }
 
             if($nombreSubasta){
-                echo $nombreSubasta;
                 if($campos_pagos){
                     foreach ($campos_pagos as $campo_pago) {
                         uploadFile($campo_pago, "subasta_" . $nombreSubasta . "/Documentos pagos");
@@ -120,7 +119,7 @@ if (!empty($_FILES)) {
         }
         
        echo "Archivo subido";
-       header('Location:http://localhost/form-superbid/public/gracias.html');
+       header('Location:http://geniorama.site/demo/superbid-form/public/gracias.html');
     } catch (\exception $e) {
         print_r($e);
     }
