@@ -26,7 +26,8 @@ if (!empty($_FILES)) {
     //Archivos a subir
     $tiposArchivos = $_POST['rg-type-document'];
 
-    $nombreSubasta = false;
+    //$nombreSubasta = '';
+    $nombreSubasta = filter_var($_POST["rg-nombre-subasta"], FILTER_SANITIZE_STRING);
 
     //Renombrando archivos
     $nombrecarpeta = "/". $tipoDocumento . "_" .$numDocumento;
@@ -48,7 +49,7 @@ if (!empty($_FILES)) {
             break;
 
         case 'pagos':
-            $nombreSubasta = filter_var($_POST["rg-nombre-subasta"], FILTER_SANITIZE_STRING);
+            //$nombreSubasta = filter_var($_POST["rg-nombre-subasta"], FILTER_SANITIZE_STRING);
             $nombreCarpetaReg = "Documentos pagos";
 
             $field_carta_tercero = tempFile('rg-field-carta-tercero', 'carta_tercero');
@@ -62,7 +63,7 @@ if (!empty($_FILES)) {
             break;
         
         case 'garantia':
-            $nombreSubasta = filter_var($_POST["rg-nombre-subasta"], FILTER_SANITIZE_STRING);
+            //$nombreSubasta = filter_var($_POST["rg-nombre-subasta"], FILTER_SANITIZE_STRING);
             $field_soporte_garantia = tempFile('rg-field-soporte-garantia', 'soporte_garantia');
             $field_cert_bancaria = tempFile('rg-field-certificacion-bancaria', 'certificacion_bancaria');
             $field_docs_garantias = tempFile('rg-field-documentos-garantias', 'documentos_garantias');
@@ -72,7 +73,7 @@ if (!empty($_FILES)) {
             break;
 
         case 'retiros':
-            $nombreSubasta = filter_var($_POST["rg-nombre-subasta"], FILTER_SANITIZE_STRING);
+            //$nombreSubasta = filter_var($_POST["rg-nombre-subasta"], FILTER_SANITIZE_STRING);
             $field_planilla_aportes = tempFile('rg-field-planilla-aportes', 'planilla_aportes');
             $field_poliza = tempFile('rg-field-poliza', 'poliza');
             $field_rtm = tempFile('rg-field-rtm', 'rtm');
@@ -90,33 +91,35 @@ if (!empty($_FILES)) {
     try {
         //$folder = $dropbox->createFolder("/". $documento);
         if($numDocumento){
-            foreach ($campos_registro as $campo) {
-                uploadFile($campo,"Documentos registro");
+            if($campos_registro){
+                foreach ($campos_registro as $campo) {
+                    uploadFile($campo,"Documentos registro");
+                }
             }
 
             if($nombreSubasta){
                 if($campos_pagos){
                     foreach ($campos_pagos as $campo_pago) {
-                        uploadFile($campo_pago, $nombreSubasta . "/Documentos pagos");
+                        uploadFile($campo_pago, "subasta_" . $nombreSubasta . "/Documentos pagos");
                     }
                 }
 
                 if($campos_garantia){
                     foreach ($campos_garantia as $campo_garantia) {
-                        uploadFile($campo_garantia, $nombreSubasta . "/Documentos garantia");
+                        uploadFile($campo_garantia, "subasta_" . $nombreSubasta . "/Documentos garantia");
                     }
                 }
 
                 if($campos_retiros){
                     foreach ($campos_retiros as $campo_retiros) {
-                        uploadFile($campo_retiros, $nombreSubasta . "/Documentos retiros");
+                        uploadFile($campo_retiros, "subasta_" . $nombreSubasta . "/Documentos retiros");
                     }
                 }
             }
         }
         
        echo "Archivo subido";
-       header('Location:http://localhost/form_superbid/public/gracias.html');
+       header('Location:http://geniorama.site/demo/superbid-form/public/gracias.html');
     } catch (\exception $e) {
         print_r($e);
     }

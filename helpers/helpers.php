@@ -22,3 +22,27 @@ if(!function_exists('uploadFile')){
         }
     }
 }
+
+
+if(!function_exists('deleteFile')){
+    function deleteFile($field, $folder){
+        global $dropbox;
+        global $nombrecarpeta;
+        if($field){
+            $file = $dropbox->delete($nombrecarpeta . "/" . $folder . $field["name_document"]);
+            ///cedula-ciudadania_213213213/Documentos registro/cedula_ciudadania.png
+        }
+    }
+}
+
+if(!function_exists('dataFolder')){
+    function dataFolder(){
+        global $dropbox;
+        global $nombrecarpeta;
+        if($nombrecarpeta){
+            $file = $dropbox->getMetadata($nombrecarpeta);
+            return $file;
+            ///cedula-ciudadania_213213213/Documentos registro/cedula_ciudadania.png
+        }
+    }
+}
