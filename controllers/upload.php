@@ -49,7 +49,6 @@ if (!empty($_FILES)) {
             break;
 
         case 'pagos':
-            //$nombreSubasta = filter_var($_POST["rg-nombre-subasta"], FILTER_SANITIZE_STRING);
             $nombreCarpetaReg = "Documentos pagos";
 
             $field_carta_tercero = tempFile('rg-field-carta-tercero', 'carta_tercero');
@@ -63,7 +62,6 @@ if (!empty($_FILES)) {
             break;
         
         case 'garantia':
-            //$nombreSubasta = filter_var($_POST["rg-nombre-subasta"], FILTER_SANITIZE_STRING);
             $field_soporte_garantia = tempFile('rg-field-soporte-garantia', 'soporte_garantia');
             $field_cert_bancaria = tempFile('rg-field-certificacion-bancaria', 'certificacion_bancaria');
             $field_docs_garantias = tempFile('rg-field-documentos-garantias', 'documentos_garantias');
@@ -73,7 +71,6 @@ if (!empty($_FILES)) {
             break;
 
         case 'retiros':
-            //$nombreSubasta = filter_var($_POST["rg-nombre-subasta"], FILTER_SANITIZE_STRING);
             $field_planilla_aportes = tempFile('rg-field-planilla-aportes', 'planilla_aportes');
             $field_poliza = tempFile('rg-field-poliza', 'poliza');
             $field_rtm = tempFile('rg-field-rtm', 'rtm');
@@ -89,7 +86,7 @@ if (!empty($_FILES)) {
 
 
     try {
-        //$folder = $dropbox->createFolder("/". $documento);
+        
         if($numDocumento){
             if($campos_registro){
                 foreach ($campos_registro as $campo) {
