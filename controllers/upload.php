@@ -114,8 +114,6 @@ if (!empty($_FILES)) {
                 }
             }
         }
-        
-       echo "Archivo subido";
        header('Location:http://geniorama.site/demo/superbid-form/public/gracias.html');
     } catch (\exception $e) {
         print_r($e);
