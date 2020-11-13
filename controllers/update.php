@@ -48,9 +48,9 @@ if (!empty($_FILES)) {
             }
         }
         
-       header('Location:http://geniorama.site/demo/superbid-form/public/gracias.html');
+       header('Location:https://www.superbidcolombia.com/formulario-documentos/gracias.html');
     } catch (\exception $e) {
        //print_r($e);
-       header('Location:http://geniorama.site/demo/superbid-form/public/error.html');
+       header('Location:https://www.superbidcolombia.com/formulario-documentos/error.html');
     }
 }
