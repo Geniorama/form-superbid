@@ -47,6 +47,16 @@ if (!empty($_FILES)) {
 
             
             break;
+        
+        case 'creacion':
+            
+            $field_creacion_cliente = tempFile('rg-field-creacion-cliente', 'doc_creacion_cliente');
+            $field_anexo_1 = tempFile('rg-field-anexo-1', 'anexo_1');
+            $field_anexo_2 = tempFile('rg-field-anexo-2', 'anexo_2');
+
+            $campos_creacion = array($field_creacion_cliente, $field_anexo_1, $field_anexo_2);
+
+            break;
 
         case 'pagos':
             $nombreCarpetaReg = "Documentos pagos";
@@ -91,6 +101,12 @@ if (!empty($_FILES)) {
             if($campos_registro){
                 foreach ($campos_registro as $campo) {
                     uploadFile($campo,"Documentos registro");
+                }
+            }
+
+            if($campos_creacion){
+                foreach ($campos_creacion as $campo_creacion) {
+                    uploadFile($campo_creacion,"Documentos creación cliente");
                 }
             }
 
