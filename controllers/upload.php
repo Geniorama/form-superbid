@@ -130,9 +130,9 @@ if (!empty($_FILES)) {
                 }
             }
         }
-       header('Location:https://www.superbidcolombia.com/formulario-documentos/gracias.html');
+       header('Location:'.$path.'/gracias.html');
     } catch (\exception $e) {
         //print_r($e);
-        header('Location:https://www.superbidcolombia.com/formulario-documentos/error.html');
+        header('Location:'.$path.'/error.html');
     }
 }
