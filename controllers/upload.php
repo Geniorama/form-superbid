@@ -22,6 +22,7 @@ if (!empty($_FILES)) {
     $tipoDocumento = $_POST['rg-tipo-doc'];
     $numDocumento = $_POST['rg-num-doc'];
     $tipoPersona = $_POST['rg-tipo-persona'];
+    $nombreEmpresa = $_POST['rg-nombre-empresa'];
 
     //Archivos a subir
     $tiposArchivos = $_POST['rg-type-document'];
@@ -59,7 +60,6 @@ if (!empty($_FILES)) {
             break;
 
         case 'pagos':
-            $nombreCarpetaReg = "Documentos pagos";
 
             $field_carta_tercero = tempFile('rg-field-carta-tercero', 'carta_tercero');
             $field_soporte_pago_lote = tempFile('rg-field-soporte-pago-lote', 'soporte_pago_lote');
@@ -104,9 +104,9 @@ if (!empty($_FILES)) {
                 }
             }
 
-            if($campos_creacion){
+            if($campos_creacion && $nombreEmpresa){
                 foreach ($campos_creacion as $campo_creacion) {
-                    uploadFile($campo_creacion,"Documentos creación cliente");
+                    uploadFile($campo_creacion, "empresa_" . $nombreEmpresa . "/Documentos creación cliente");
                 }
             }
 
