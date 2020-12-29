@@ -75,8 +75,9 @@ if (!empty($_FILES)) {
             $field_soporte_garantia = tempFile('rg-field-soporte-garantia', 'soporte_garantia');
             $field_cert_bancaria = tempFile('rg-field-certificacion-bancaria', 'certificacion_bancaria');
             $field_docs_garantias = tempFile('rg-field-documentos-garantias', 'documentos_garantias');
+            $field_parafiscales = tempFile('rg-field-parafiscales', 'parafiscales');
 
-            $campos_garantia = array($field_soporte_garantia, $field_cert_bancaria, $field_docs_garantias);
+            $campos_garantia = array($field_soporte_garantia, $field_cert_bancaria, $field_docs_garantias, $field_parafiscales);
             
             break;
 
