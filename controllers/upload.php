@@ -1,7 +1,7 @@
 <?php
 
 require_once "./../config/config.php";
-require_once "../terceros/dropbox/vendor/autoload.php";
+require_once "./../terceros/dropbox/vendor/autoload.php";
 require_once "./../helpers/helpers.php";
 
 use Kunnu\Dropbox\Dropbox;
@@ -51,7 +51,7 @@ if (!empty($_FILES)) {
     switch ($tiposArchivos) {
         case 'registro':
             $field_documento = tempFile('rg-field-documento', 'CC');
-            $field_rut = tempFile('rg-field-rut', 'NIT');
+            $field_rut = tempFile('rg-field-rut', 'RUT');
 
             if($tipoPersona == "p-juridica"){
                 $field_camara_comercio = tempFile('rg-field-camara-comercio', 'CCMO');
