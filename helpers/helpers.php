@@ -6,7 +6,7 @@ if(!function_exists('tempFile')){
             $ext = explode(".",$_FILES[$file]['name']);
             $ext = end($ext);
     
-            $name_document = "/". $name . "." . $ext;
+            $name_document = "/" . $name . "_" . $GLOBALS['nombreArchivo'] . "." . $ext;
     
             return array("document" => $document, "ext" => $ext, "name_document" => $name_document);
         }
@@ -16,9 +16,8 @@ if(!function_exists('tempFile')){
 if(!function_exists('uploadFile')){
     function uploadFile($field, $folder){
         global $dropbox;
-        global $nombrecarpeta;
         if($field){
-            $file = $dropbox->simpleUpload($field["document"], $nombrecarpeta . "/" . $folder . $field["name_document"],['autorename' => true]);
+            $file = $dropbox->simpleUpload($field["document"], "/" . $folder . $field["name_document"],['autorename' => true]);
         }
     }
 }
