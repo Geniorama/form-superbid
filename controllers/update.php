@@ -26,8 +26,8 @@ if (!empty($_FILES)) {
     //Renombrando archivos
     $nombrecarpeta = "/". $tipoDocumento . "_" .$numDocumento;
 
-    $field_documento = tempFile('upt-field-documento', 'cedula_ciudadania');
-    $field_rut = tempFile('upt-field-rut', 'nit');
+    $field_documento = tempFile('upt-field-documento', 'CC');
+    $field_rut = tempFile('upt-field-rut', 'NIT');
 
     if($tipoPersona == "p-juridica"){
         $field_camara_comercio = tempFile('upt-field-camara-comercio', 'camara_comercio');
@@ -43,8 +43,8 @@ if (!empty($_FILES)) {
 
         if($numDocumento && $datos->id){
             foreach ($campos_registro as $campo) {
-                deleteFile($campo, "Documentos registro");
-                uploadFile($campo, "Documentos registro");
+                deleteFile($campo, "Registro");
+                uploadFile($campo, "Registro");
             }
         }
         
