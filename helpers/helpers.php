@@ -1,4 +1,6 @@
 <?php
+require_once "./../connect/connect.php";
+
 if(!function_exists('tempFile')){
     function tempFile($file, $name){
         $document = $_FILES[$file]['tmp_name'];
@@ -15,7 +17,9 @@ if(!function_exists('tempFile')){
 
 if(!function_exists('uploadFile')){
     function uploadFile($field, $folder){
-        global $dropbox;
+        $database = new ConnectDropbox();
+        $dropbox = $database->connectDr();
+        
         if($field){
             $file = $dropbox->simpleUpload($field["document"], "/" . $folder . $field["name_document"],['autorename' => true]);
         }
