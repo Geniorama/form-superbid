@@ -2,7 +2,7 @@
 
 require_once "./../helpers/helpers.php";
 
-if (!empty($_FILES)) {
+if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
     //Datos carpeta general
     $tipoDocumento = $_POST['rg-tipo-doc'];
     $numDocumento = $_POST['rg-num-doc'];

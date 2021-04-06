@@ -1,25 +1,14 @@
 <?php
 
-require_once "./../config/config.php";
-require_once "./../terceros/dropbox/vendor/autoload.php";
-require_once "./../helpers/helpers.php";
+require_once "./../connect/connect.php";
 
-
-
-$dropboxKey = $api_config["dropboxKey"];
-$dropboxSecret = $api_config["dropboxSecret"];
-$dropboxToken = $api_config["dropboxToken"];
-
-use Kunnu\Dropbox\Dropbox;
-use Kunnu\Dropbox\DropboxApp;
-
-$app = new DropboxApp($dropboxKey,$dropboxSecret,$dropboxToken);
-$dropbox = new Dropbox($app);
+$database = new ConnectDropbox();
+$dropbox = $database->connectDr();
 
 class Folder {
-    function obtenerCarpetas(){
+    function obtenerCarpetas($carpeta){
         global $dropbox;
-        $listFolderContents = $dropbox->listFolder("/Pagos");
+        $listFolderContents = $dropbox->listFolder("/" . $carpeta);
 
         $items = $listFolderContents->getItems();
 

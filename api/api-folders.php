@@ -1,29 +1,13 @@
 <?php
 
-require_once "./../connect/connect.php";
+require_once "./../controllers/folders.php";
 
-$database = new ConnectDropbox();
-$dropbox = $database->connectDr();
-
-var_dump($dropbox);
-
-// class ApiFolders{
-//     function getAll(){
-//         $folders = new Folder();
-
-//         $allFolders = array();
-//         $allFolders["items"] = array();
-
-//         $res = $folders->obtenerCarpetas();
-
-//         foreach($res as $itemFold){
-//             $item = array(
-//                 'nombre' => $itemFold['nameFolder']
-//             );
-
-//             array_push($allFolders["items"], $item);
-//         }
-        
-//         echo json_encode($allFolders);
-//     }
-// }
+if($_SERVER['REQUEST_METHOD'] == 'GET'){
+    $dropFolders = new Folder();
+    if($_GET['folder']){
+        $res = $dropFolders->obtenerCarpetas($_GET['folder']);
+        echo json_encode($res);
+    } else {
+        echo "No hay un nombre de carpeta";
+    }
+}
