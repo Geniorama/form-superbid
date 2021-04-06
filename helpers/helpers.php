@@ -20,8 +20,9 @@ if(!function_exists('uploadFile')){
         $database = new ConnectDropbox();
         $dropbox = $database->connectDr();
         
-        if($field){
+        if($field && $folder){
             $file = $dropbox->simpleUpload($field["document"], "/" . $folder . $field["name_document"],['autorename' => true]);
+            return true;
         }
     }
 }

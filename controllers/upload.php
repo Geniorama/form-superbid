@@ -106,12 +106,11 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
                 $field_soat = tempFile('rg-field-soat', 'SOAT');
     
                 $campos_retiros = array($field_planilla_aportes, $field_poliza, $field_rtm, $field_soat);
-                break;
-    
+
                 foreach ($campos_retiros as $campo_retiros) {
                     uploadFile($campo_retiros, "Retiros/" . $nombreSubasta . "/" . $nombreArchivo);
                 }
-            
+                break;
             default:
                 # code...
                 break;
