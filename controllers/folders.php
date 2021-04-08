@@ -11,6 +11,7 @@ class Folder {
         $listFolderContents = $dropbox->listFolder("/" . $carpeta);
 
         $items = $listFolderContents->getItems();
+        
 
         $arrItems = [];
 
@@ -18,6 +19,7 @@ class Folder {
             array_push($arrItems, ["nameFolder" => $item->getName()]);
         }
 
+        sort($arrItems);
         return $arrItems;
     }
 }

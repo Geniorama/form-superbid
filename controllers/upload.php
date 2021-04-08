@@ -12,6 +12,9 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
     //Archivos a subir
     $tiposArchivos = $_POST['rg-type-document'];
 
+    //Política privacidad
+    $privacy_policies = $_POST['privacy-policy'];
+
     // Campo Nombre subasta
     if($tiposArchivos != "creacion" && $tiposArchivos != "registro"){
         $nombreSubasta = filter_var($_POST["rg-nombre-subasta"], FILTER_SANITIZE_STRING);   

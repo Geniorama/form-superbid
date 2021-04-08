@@ -217,11 +217,9 @@
                                         <div class="campos-creacion" id="campos-creacion">
                                             <div class="form-group mt-3 position-relative">
                                                 <label for="rg-nombre-empresa">Nombre empresa vendedora</label>
-                                                <input type="text" class="form-control input-required" id="rg-nombre-empresa"
-                                                    name="rg-nombre-empresa">
-                                                <i class="fas fa-check-circle"></i>
-                                                <i class="fas fa-exclamation-circle"></i>
-                                                <small class="err-message">Error message</small>
+                                                <select name="rg-nombre-empresa" id="rg-nombre-empresa" class="form-control custom-select input-required rg-api-folder" data-folder="Creacion%20de%20cliente" required>
+                                                    <option selected disabled>Seleccione su empresa</option>
+                                                </select>
                                             </div>
                                             <div class="sb-docs sb-docs-creacion">
                                                 <h3 class="sb-title-head-docs">Documentos de creación de cliente</h3>
@@ -366,7 +364,7 @@
                                         <div class="campos-pagos d-none" id="campos-pagos">
                                             <div class="form-group mt-3 position-relative">
                                                 <label for="rg-nombre-subasta">Nombre de la subasta</label>
-                                                <select id="rg-nombre-subasta" class="form-control custom-select rg-nombre-subasta" data-folder="Pagos" required>
+                                                <select id="rg-nombre-subasta" class="form-control custom-select rg-nombre-subasta rg-api-folder" data-folder="Pagos" required>
                                                     <option value="" selected disabled>Seleccione una opción</option>
                                                 </select>
                                             </div>
@@ -445,7 +443,7 @@
                         
                                         <div class="campos-garantia mt-4 d-none" id="campos-garantia">
                                             <div class="form-group mt-3 position-relative">
-                                                <select id="rg-nombre-subasta" class="form-control custom-select rg-nombre-subasta" data-folder="Garantia" required>
+                                                <select id="rg-nombre-subasta" class="form-control custom-select rg-nombre-subasta rg-api-folder" data-folder="Garantia" required>
                                                     <option value="" selected disabled>Seleccione una opción</option>
                                                 </select>
                                             </div>
@@ -514,7 +512,7 @@
                                         <div class="campos-retiros mt-4 d-none" id="campos-retiros">
                                             <div class="form-group mt-3 position-relative">
                                                 <label for="rg-nombre-subasta">Nombre de la subasta</label>
-                                                <select id="rg-nombre-subasta" class="form-control custom-select rg-nombre-subasta" data-folder="Retiros" required>
+                                                <select id="rg-nombre-subasta" class="form-control custom-select rg-nombre-subasta rg-api-folder" data-folder="Retiros" required>
                                                     <option value="" selected disabled>Seleccione una opción</option>
                                                 </select>
                                             </div>
@@ -574,7 +572,7 @@
                                         </div>
                         
                                         <div class="form-group form-check mt-4 text-dark">
-                                            <input type="checkbox" class="form-check-input input-required" id="privacy-policy"
+                                            <input type="checkbox" class="form-check-input input-required" id="privacy-policy" name="privacy-policy"
                                                 value="Acepto las políticas">
                                             <label class="form-check-label" for="privacy-policy">He leído y acepto las <a
                                                     href="/documentos/politicas-de-privacidad.html" target="_blank">políticas de
