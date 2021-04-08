@@ -1,10 +1,13 @@
 <?php
 
-$api_config = array(
-    "dropboxKey"   => 'yourDropboxKey',
-    "dropboxSecret" => 'yourDropboxSecret',
-    "dropboxToken"  => 'yourDropboxToken'
-);
+// YOUR DROPBOX KEY
+define('DROPBOX_KEY', 'xxxxxxxxxxxxxxxx');
 
+// YOUR DROPBOX SECRET
+define('DROPBOX_SECRET', 'xxxxxxxxxxxx');
 
-$path = "https://mydomain.com/folder";
+// YOUR DROPBOX TOKEN
+define('DROPBOX_TOKEN', 'xxxxxxxxxxxxxxxxxx');
+
+//SITE'S URL
+define('URL_SITE', 'http://localhost/form-superbid');
