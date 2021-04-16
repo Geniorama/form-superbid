@@ -25,18 +25,18 @@ if(!function_exists('uploadFile')){
 
             date_default_timezone_set('America/Bogota');
 
-            $to = "soporte@geniorama.site";
+            $to = "xxxxx@email.com";
             $title = "Archivos subidos - Dropbox Api";
             $msje = "Un nuevo archivo ha sido subido a la nube desde " . URL_SITE . "\n"  . "\n";
             $msje .=  "Datos de subida:" . "\n";
             $msje .= "Ruta archivo subido:" . "/" . $folder . $field["name_document"]  . "\n";
             $msje .= "Fecha: " . date("Y-m-d H:i:s") . "\n" . "\n";
             $msje .= "Política de privacidad: " . $GLOBALS['privacy_policies'];
-            $headers = 'From: documentos@superbid.com' . "\r\n" .
-            'Reply-To: documentos@superbid.com' . "\r\n" .
+            $headers = 'From: xxxxx@email.com' . "\r\n" .
+            'Reply-To: xxxxx@email.com' . "\r\n" .
             'X-Mailer: PHP/' . phpversion();
 
-            mail($to, $title, $msje, $headers);
+            // mail($to, $title, $msje, $headers);
 
             return true;
         }

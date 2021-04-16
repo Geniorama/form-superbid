@@ -67,7 +67,7 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
                 $campos_creacion = array($field_creacion_cliente, $field_anexo_1, $field_anexo_2, $field_anexo_3, $field_anexo_4, $field_anexo_5);
     
                 foreach ($campos_creacion as $campo_creacion) {
-                    uploadFile($campo_creacion, "Creacion de cliente/" . $nombreEmpresa);
+                    uploadFile($campo_creacion, "Creacion de cliente/" . $nombreEmpresa . "/" . $nombreArchivo);
                 }
                 
                 break;
