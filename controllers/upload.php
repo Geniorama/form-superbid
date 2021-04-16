@@ -50,7 +50,7 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
                 }
     
                 foreach ($campos_registro as $campo) {
-                    uploadFile($campo,"Registro");
+                    uploadFile($campo,"Registro/" . $nombreArchivo  );
                 }
     
                 break;
