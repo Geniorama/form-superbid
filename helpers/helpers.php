@@ -1,6 +1,7 @@
 <?php
 require_once "./../connect/connect.php";
 
+// Renombrando archivos subidos
 if(!function_exists('tempFile')){
     function tempFile($file, $name){
         $document = $_FILES[$file]['tmp_name'];
@@ -15,6 +16,7 @@ if(!function_exists('tempFile')){
     }
 }
 
+// Subir archivos a Dropbox
 if(!function_exists('uploadFile')){
     function uploadFile($field, $folder){
         $database = new ConnectDropbox();
@@ -46,23 +48,27 @@ if(!function_exists('uploadFile')){
 
 if(!function_exists('deleteFile')){
     function deleteFile($field, $folder){
-        global $dropbox;
-        global $nombrecarpeta;
+        $database = new ConnectDropbox();
+        $dropbox = $database->connectDr();
+
         if($field){
-            $file = $dropbox->delete($nombrecarpeta . "/" . $folder . $field["name_document"]);
-            ///cedula-ciudadania_213213213/Documentos registro/cedula_ciudadania.png
+            $fileMetaData = $dropbox->getMetadata("/" . $folder . $field["name_document"]);
+            if($fileMetaData){
+                $file = $dropbox->delete("/" . $folder . $field["name_document"]);
+            }
         }
     }
 }
 
 if(!function_exists('dataFolder')){
-    function dataFolder(){
-        global $dropbox;
-        global $nombrecarpeta;
-        if($nombrecarpeta){
-            $file = $dropbox->getMetadata($nombrecarpeta);
-            return $file;
-            ///cedula-ciudadania_213213213/Documentos registro/cedula_ciudadania.png
+    function dataFolder($folderName){
+        $database = new ConnectDropbox();
+        $dropbox = $database->connectDr();
+        
+        if($folderName){
+            $fileMetaData = $dropbox->getMetadata($folderName);
+            return $fileMetaData;
+            // /cedula-ciudadania_213213213/Documentos registro/cedula_ciudadania.png
         }
     }
 }
