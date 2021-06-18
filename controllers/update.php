@@ -33,19 +33,19 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
         $campos_registro = array($field_documento, $field_rut);
     }
 
-    $datos = dataFolder('/Registro/' . $nombreArchivo);
 
+    try {
+        $datos = dataFolder('/Registro/' . $nombreArchivo);
 
-    if($numDocumento && $datos->id){
         foreach ($campos_registro as $campo) {
-            deleteFile($campo, "Registro/" . $nombreArchivo );
+            // deleteFile($campo, "Registro/" . $nombreArchivo );
             uploadFile($campo,"Registro/" . $nombreArchivo  );
 
             header('Location:'.URL_SITE.'/gracias.html');
         }
-
-    } else {
-        header('Location:'.URL_SITE.'/error.html');
+       
+    } catch (Exception $e) {
+        header('Location:'.URL_SITE.'/error.php?error='.$e->getMessage().'');
     }
 
 }

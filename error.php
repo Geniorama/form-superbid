@@ -33,6 +33,24 @@
             <h2 class="sb-title">ERROR</h2>
             <hr class="sb-sub-divider">
             <p>El <b>tipo</b> o <b>número</b> de documento no se encuentra</p>
+            <?php 
+                if($_GET['error']){
+                    ?>  
+                    <div class="card border-danger m-auto mb-3" style="max-width: 18rem;">
+                        <div class="card-header">Información del error</div>
+                            <div class="card-body text-danger">
+                                <!-- <h5 class="card-title">Danger card title</h5> -->
+                                <p class="card-text">
+                                    <?php
+                                        echo $_GET['error'];
+                                    ?>
+                                </p>
+                            </div>
+                        </div>
+                    <?php
+                }
+            
+            ?>
             <a href="index.html" class="btn btn-primary rounded-pill mt-3">Regresar</a>
 
         </div>

@@ -53,8 +53,10 @@ if(!function_exists('deleteFile')){
 
         if($field){
             $fileMetaData = $dropbox->getMetadata("/" . $folder . $field["name_document"]);
-            if($fileMetaData){
+            if($fileMetaData->id){
                 $file = $dropbox->delete("/" . $folder . $field["name_document"]);
+            } else {
+                die();
             }
         }
     }

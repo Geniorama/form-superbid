@@ -120,7 +120,7 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
         }
         header('Location:'.URL_SITE.'/gracias.html');
     } else {
-        header('Location:'.URL_SITE.'/error.html');
+        header('Location:'.URL_SITE.'/error.php');
     }
     
 }
