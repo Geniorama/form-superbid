@@ -50,11 +50,19 @@
                         <a href="#sb-action-form" class="m-4 button-form" data-form="#form-register" data-aos="fade-right" data-aos-duration="1500">
                             <img src="static/add-doc.svg" alt=""><br><br>
                             <button class="btn btn-primary rounded-pill">Cargar documentos</button>
-                        </a href="#">
+                        </a>
                         <a href="#sb-action-form" class="m-4 button-form" data-form="#form-update" data-aos="fade-left" data-aos-duration="1500">
                             <img src="static/update-doc.svg" alt=""><br><br>
                             <button class="btn btn-primary rounded-pill">Actualizar documentos</button>
-                        </a href="#">
+                        </a>
+                        <a href="#sb-action-form" class="m-4 button-form btn-wrr" data-form="#form-warranty" data-aos="fade-left" data-aos-duration="1500">
+                            <img src="static/garantia.png" alt=""><br><br>
+                            <button class="btn btn-primary rounded-pill">Garantía</button>
+                        </a>
+                        <a href="https://forms.gle/mcTDmejyzPQ5wXoj6" target="_blank" class="m-4 button-form btn-wrr" data-aos="fade-left" data-aos-duration="1500">
+                            <img src="static/agenda.png" alt=""><br><br>
+                            <button class="btn btn-primary rounded-pill">Agendamiento Visita</button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -157,16 +165,6 @@
                                             </div>
                         
                                             <div class="col custom-control custom-radio custom-control-inline d-flex flex-column mx-5 mx-lg-3 button-tooltip"
-                                                data-toggle="tooltip" data-placement="bottom" data-html="true"
-                                                title="Quiero reportar el pago de mi garantía">
-                                                <label class="label-img" for="rg-opt-garantia"><i class="far fa-file-alt"></i></label>
-                                                <input type="radio" id="rg-opt-garantia" name="rg-type-document" class="custom-control-input"
-                                                    value="garantia" data-fields="campos-garantia">
-                                                <label class="custom-control-label" for="rg-opt-garantia">Garantía</label>
-                                                <i class="custom-radio-desc">Para participar o devolución</i>
-                                            </div>
-                        
-                                            <div class="col custom-control custom-radio custom-control-inline d-flex flex-column mx-5 mx-lg-3 button-tooltip"
                                                 data-toggle="tooltip" data-placement="bottom" data-html="true" title="Creación de cliente">
                                                 <label class="label-img" for="rg-opt-creacion"><i class="far fa-file-alt"></i></label>
                                                 <input type="radio" id="rg-opt-creacion" name="rg-type-document" class="custom-control-input"
@@ -217,7 +215,7 @@
                                         <div class="campos-creacion" id="campos-creacion">
                                             <div class="form-group mt-3 position-relative">
                                                 <label for="rg-nombre-empresa">Nombre empresa vendedora</label>
-                                                <select name="rg-nombre-empresa" id="rg-nombre-empresa" class="form-control custom-select input-required rg-api-folder" data-folder="Creacion%20de%20cliente" required>
+                                                <select name="rg-nombre-empresa" id="rg-nombre-empresa" class="form-control custom-select input-required rg-api-folder" data-folder="Creacion%20de%20cliente">
                                                     <option selected disabled>Seleccione su empresa</option>
                                                 </select>
                                             </div>
@@ -364,7 +362,7 @@
                                         <div class="campos-pagos d-none" id="campos-pagos">
                                             <div class="form-group mt-3 position-relative">
                                                 <label for="rg-nombre-subasta">Nombre de la subasta</label>
-                                                <select id="rg-nombre-subasta" class="form-control custom-select rg-nombre-subasta rg-api-folder" data-folder="Pagos" required>
+                                                <select id="rg-nombre-subasta" class="form-control custom-select rg-nombre-subasta rg-api-folder" data-folder="Pagos">
                                                     <option value="" selected disabled>Seleccione una opción</option>
                                                 </select>
                                             </div>
@@ -443,7 +441,7 @@
                         
                                         <div class="campos-garantia mt-4 d-none" id="campos-garantia">
                                             <div class="form-group mt-3 position-relative">
-                                                <select id="rg-nombre-subasta" class="form-control custom-select rg-nombre-subasta rg-api-folder" data-folder="Garantia" required>
+                                                <select id="rg-nombre-subasta" class="form-control custom-select rg-nombre-subasta rg-api-folder" data-folder="Garantia">
                                                     <option value="" selected disabled>Seleccione una opción</option>
                                                 </select>
                                             </div>
@@ -517,7 +515,7 @@
                                         <div class="campos-retiros mt-4 d-none" id="campos-retiros">
                                             <div class="form-group mt-3 position-relative">
                                                 <label for="rg-nombre-subasta">Nombre de la subasta</label>
-                                                <select id="rg-nombre-subasta" class="form-control custom-select rg-nombre-subasta rg-api-folder" data-folder="Retiros" required>
+                                                <select id="rg-nombre-subasta" class="form-control custom-select rg-nombre-subasta rg-api-folder" data-folder="Retiros">
                                                     <option value="" selected disabled>Seleccione una opción</option>
                                                 </select>
                                             </div>
@@ -739,6 +737,206 @@
                                         <button type="submit"
                                             class="step-button next-step btn btn-primary rounded-pill button-disabled button-submit"
                                             data-step="2">Enviar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>                        <form action="controllers/upload.php" class="sb-form" id="form-warranty" method="POST" enctype="multipart/form-data">
+                            <div class="sb-form-header">
+                                <ul class="sb-progressbar nav justify-content-center">
+                                    <li class="nav-item sb-progressbar-option active active my-0 mx-5"></li>
+                                    <li class="nav-item sb-progressbar-option my-0 mx-5"></li>
+                                    <li class="nav-item sb-progressbar-option my-0 mx-5"></li>
+                                </ul>
+                            </div>
+                        
+                            <div class="sb-form-body d-flex">
+                                <div class="step active mt-5" id="step-1">
+                                    <div class="step-header text-center">
+                                        <h3 class="sb-title-header">GARANTÍA</h3>
+                                        <hr class="sb-sub-divider">
+                                        <p class="sb-subtitle-header">Seleccione el proceso que desea realizar</p>
+                                    </div>
+                                    <div class="sb-step-body mt-5 sb-opt-warranty">
+                                        <div class="row text-center justify-content-center">
+                                            <div class="col-12 col-md-4">
+                                                <button type="button" class="step-button next-step sb-opt-warranty__link step-button-next"  data-to_step="2" data-step="1">
+                                                    <i class="fas fa-file-upload"></i>
+                                                    <input type="hidden" id="wrr-opt-garantia" name="wrr-type-document" class="custom-control-input"
+                                                    value="garantia" data-fields="campos-garantia">
+                                                    <span>Cargar Documentos Garantía</span>
+                                                </button>
+                                            </div>
+                        
+                                            <div class="col col-md-4">
+                                                <a href="https://forms.gle/yLCsGPTJFeaj3jCU8" target="_blank" class="sb-opt-warranty__link">
+                                                    <i class="fas fa-redo"></i>
+                                                    <span>Devolución Garantía</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                        
+                                    <div class="alerts"></div>
+                                </div>
+                        
+                                <div class="step mt-5" id="step-2">
+                                    <div class="step-header text-center">
+                                        <h3 class="sb-title-header">INFORMACIÓN GENERAL</h3>
+                                        <hr class="sb-sub-divider">
+                                        <p class="sb-subtitle-header">Rellene los campos a continuación</p>
+                                    </div>
+                                    <div class="sb-step-body mt-5">
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="wrr-tipo-doc">Tipo de documento</label>
+                                                    <select name="wrr-tipo-doc" id="wrr-tipo-doc"
+                                                        class="form-control custom-select input-required">
+                                                        <option value="" disabled selected>Selecciona una opción</option>
+                                                        <option value="cedula-ciudadania">Cédula de ciudadanía</option>
+                                                        <option value="nit">NIT</option>
+                                                        <option value="cedula-extranjeria">Cédula de extranjería</option>
+                                                        <option value="pasaporte">Pasaporte</option>
+                                                    </select>
+                                                    <i class="fas fa-check-circle"></i>
+                                                    <i class="fas fa-exclamation-circle"></i>
+                                                    <small class="err-message">Error message</small>
+                                                </div>
+                                            </div>
+                        
+                                            <div class="col-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="wrr-num-doc">Número de documento</label>
+                                                    <input type="number" name="wrr-num-doc" id="wrr-num-doc" min="1"
+                                                        class="form-control input-required">
+                                                    <i class="fas fa-check-circle"></i>
+                                                    <i class="fas fa-exclamation-circle"></i>
+                                                    <small class="err-message">Error message</small>
+                                                </div>
+                                            </div>
+                        
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="wrr-tipo-persona">Tipo de persona</label>
+                                                    <select name="wrr-tipo-persona" id="wrr-tipo-persona"
+                                                        class="form-control custom-select input-required">
+                                                        <option value="" disabled selected>Selecciona una opción</option>
+                                                        <option value="p-natural" disabled>Natural</option>
+                                                        <option value="p-juridica" disabled>Jurídica</option>
+                                                    </select>
+                                                    <i class="fas fa-check-circle"></i>
+                                                    <i class="fas fa-exclamation-circle"></i>
+                                                    <small class="err-message">Error message</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                        
+                                    <div class="sb-step-footer text-right mt-4">
+                                        <div class="alerts">
+                        
+                                        </div>
+                                        <div class="sb-step-footer d-flex justify-content-between mt-5">
+                                        <button type="button" class="step-button step-button-back btn btn-outline-primary rounded-pill"
+                                            data-to_step="1" data-step="2">Anterior</button>
+                                            <button type="button" class="step-button next-step btn btn-primary rounded-pill button-disabled"
+                                                data-to_step="3" data-step="2">Siguiente</button>
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                                
+                        
+                                <div class="step mt-5" id="step-3">
+                                    <div class="step-header text-center">
+                                        <h3 class="sb-title-header">CARGA DE DOCUMENTOS</h3>
+                                        <hr class="sb-sub-divider">
+                                        <p class="sb-subtitle-header">A continuación arrastre o seleccione los archivos que desea <b>cargar</b>
+                                        </p>
+                                    </div>
+                                    <div class="sb-step-body mt-5 sb-ind-files">
+                                        <div class="campos-garantia mt-4" id="campos-garantia">
+                                            <div class="form-group mt-3 position-relative">
+                                                <select id="wrr-nombre-subasta" name="wrr-nombre-subasta" class="form-control custom-select wrr-nombre-subasta wrr-api-folder" data-folder="Garantia" required>
+                                                    <option value="" selected disabled>Seleccione una opción</option>
+                                                </select>
+                                            </div>
+                                            <div class="sb-docs sb-docs-garantia">
+                                                <h3 class="sb-title-head-docs">Documentos de garantía</h3>
+                                                <p class="mb-4">Cuando la garantía sea consignada por un tercero y esta sea mayor a <span
+                                                        class="text-secondary font-weight-bold">$5.000.000</span> debe diligenciar la persona
+                                                    que consignó el documento enviado según corresponda (persona natural o jurídica), adjuntando
+                                                    lo solicitado en el mismo.</p>
+                                                <div class="row mt-3">
+                                                    <div class="col-6 col-md-3">
+                                                        <div class="sb-group-file position-relative text-center">
+                                                            <input type="file" accept="image/jpeg,image/jpg,image/png, .pdf"
+                                                                id="wrr-field-soporte-garantia" class="sb-input-file"
+                                                                name="wrr-field-soporte-garantia">
+                                                            <div class="icon-file">
+                                                                <i class="fas fa-file"></i>
+                                                                <span class="sb-name-file"></span>
+                                                            </div>
+                                                            <label for="wrr-field-soporte-garantia" class="mt-5">Soporte de garantía</label>
+                                                        </div>
+                                                    </div>
+                        
+                                                    <div class="col-6 col-md-3">
+                                                        <div class="sb-group-file position-relative text-center">
+                                                            <input type="file" accept="image/jpeg,image/jpg,image/png, .pdf"
+                                                                id="wrr-field-certificacion-bancaria" class="sb-input-file"
+                                                                name="wrr-field-certificacion-bancaria">
+                                                            <div class="icon-file">
+                                                                <i class="fas fa-file"></i>
+                                                                <span class="sb-name-file"></span>
+                                                            </div>
+                                                            <label for="wrr-field-certificacion-bancaria" class="mt-5">Certificación
+                                                                bancaria</label>
+                                                        </div>
+                                                    </div>
+                        
+                                                    <div class="col-6 col-md-3">
+                                                        <div class="sb-group-file position-relative text-center">
+                                                            <input type="file" accept="image/jpeg,image/jpg,image/png, .pdf"
+                                                                id="wrr-field-documentos-garantias" class="sb-input-file"
+                                                                name="wrr-field-documentos-garantias">
+                                                            <div class="icon-file">
+                                                                <i class="fas fa-file"></i>
+                                                                <span class="sb-name-file"></span>
+                                                            </div>
+                                                            <label for="wrr-field-documentos-garantias" class="mt-5">Documentos garantias</label>
+                                                        </div>
+                                                    </div>
+                        
+                                                    <div class="col-6 col-md-3">
+                                                        <div class="sb-group-file position-relative text-center">
+                                                            <input type="file" accept="image/jpeg,image/jpg,image/png, .pdf"
+                                                                id="wrr-field-parafiscales" class="sb-input-file" name="wrr-field-parafiscales">
+                                                            <div class="icon-file">
+                                                                <i class="fas fa-file"></i>
+                                                                <span class="sb-name-file"></span>
+                                                            </div>
+                                                            <label for="wrr-field-parafiscales" class="mt-5">Parafiscales (visitas)</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                        
+                                         <div class="form-group form-check mt-4 text-dark">
+                                            <input type="checkbox" class="form-check-input input-required" id="privacy-policy" name="privacy-policy"
+                                                value="Acepto las políticas">
+                                            <label class="form-check-label" for="privacy-policy">He leído y acepto las <a
+                                                    href="/documentos/politicas-de-privacidad.html" target="_blank">políticas de
+                                                    privacidad</a></label>
+                                        </div>
+                                    </div>
+                                    <div class="sb-step-footer d-flex justify-content-between mt-5">
+                                        <button type="button" class="step-button step-button-back btn btn-outline-primary rounded-pill"
+                                            data-to_step="2" data-step="3">Anterior</button>
+                                        <button type="submit"
+                                            class="step-button next-step btn btn-primary rounded-pill button-disabled button-submit"
+                                            data-step="3">Enviar</button>
                                     </div>
                                 </div>
                             </div>

@@ -3,22 +3,38 @@
 require_once "./../helpers/helpers.php";
 
 if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
-    //Datos carpeta general
-    $tipoDocumento = $_POST['rg-tipo-doc'];
-    $numDocumento = $_POST['rg-num-doc'];
-    $tipoPersona = $_POST['rg-tipo-persona'];
-    $nombreEmpresa = $_POST['rg-nombre-empresa'];
 
-    //Archivos a subir
-    $tiposArchivos = $_POST['rg-type-document'];
+    if(isset($_POST['rg-tipo-doc'])){
+        //Datos carpeta general
+        $tipoDocumento = $_POST['rg-tipo-doc'];
+        $numDocumento = $_POST['rg-num-doc'];
+        $tipoPersona = $_POST['rg-tipo-persona'];
+        $nombreEmpresa = $_POST['rg-nombre-empresa'];
+
+        //Archivos a subir
+        $tiposArchivos = $_POST['rg-type-document'];
+
+         // Campo Nombre subasta
+        if($tiposArchivos != "creacion" && $tiposArchivos != "registro"){
+            $nombreSubasta = filter_var($_POST["rg-nombre-subasta"], FILTER_SANITIZE_STRING);   
+        }
+    } else {
+        $tipoDocumento = $_POST['wrr-tipo-doc'];
+        $numDocumento = $_POST['wrr-num-doc'];
+        $tipoPersona = $_POST['wrr-tipo-persona'];
+        // $nombreEmpresa = $_POST['wrr-nombre-empresa'];
+
+        //Archivos a subir
+        $tiposArchivos = $_POST['wrr-type-document'];
+
+        $nombreSubasta = filter_var($_POST["wrr-nombre-subasta"], FILTER_SANITIZE_STRING);   
+    }
+    
 
     //Política privacidad
     $privacy_policies = $_POST['privacy-policy'];
 
-    // Campo Nombre subasta
-    if($tiposArchivos != "creacion" && $tiposArchivos != "registro"){
-        $nombreSubasta = filter_var($_POST["rg-nombre-subasta"], FILTER_SANITIZE_STRING);   
-    }
+    echo $numDocumento;
 
     if($tipoDocumento == "cedula-ciudadania"){
         $abrev = "CC";
@@ -89,10 +105,18 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
                 break;
             
             case 'garantia':
-                $field_soporte_garantia = tempFile('rg-field-soporte-garantia', 'SG');
-                $field_cert_bancaria = tempFile('rg-field-certificacion-bancaria', 'CB');
-                $field_docs_garantias = tempFile('rg-field-documentos-garantias', 'DG');
-                $field_parafiscales = tempFile('rg-field-parafiscales', 'PF');
+
+                if(isset($_POST['rg-tipo-doc'])){
+                    $field_soporte_garantia = tempFile('rg-field-soporte-garantia', 'SG');
+                    $field_cert_bancaria = tempFile('rg-field-certificacion-bancaria', 'CB');
+                    $field_docs_garantias = tempFile('rg-field-documentos-garantias', 'DG');
+                    $field_parafiscales = tempFile('rg-field-parafiscales', 'PF');
+                } else {
+                    $field_soporte_garantia = tempFile('wrr-field-soporte-garantia', 'SG');
+                    $field_cert_bancaria = tempFile('wrr-field-certificacion-bancaria', 'CB');
+                    $field_docs_garantias = tempFile('wrr-field-documentos-garantias', 'DG');
+                    $field_parafiscales = tempFile('wrr-field-parafiscales', 'PF');
+                }
     
                 $campos_garantia = array($field_soporte_garantia, $field_cert_bancaria, $field_docs_garantias, $field_parafiscales);
                 
