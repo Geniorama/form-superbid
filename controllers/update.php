@@ -21,6 +21,7 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
     //Renombrando archivos
     $nombreArchivo = $abrev . "_" .$numDocumento;
 
+    $idRadicado = uniqid($abrev . "-" .$numDocumento . "-");
 
     $field_documento = tempFile('upt-field-documento', 'CC');
     $field_rut = tempFile('upt-field-rut', 'NIT');
@@ -41,11 +42,11 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
             // deleteFile($campo, "Registro/" . $nombreArchivo );
             uploadFile($campo,"Registro/" . $nombreArchivo  );
 
-            header('Location:'.URL_SITE.'/gracias.html');
+            header('Location:'.URL_SITE.'/gracias.php?rad='. $idRadicado);
         }
        
     } catch (Exception $e) {
-        header('Location:'.URL_SITE.'/error.php?error='.$e->getMessage().'');
+        header('Location:'.URL_SITE.'/error.php?error='.$e->getMessage().'&rad='.$idRadicado.'');
     }
 
 }

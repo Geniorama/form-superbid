@@ -25,34 +25,43 @@
                 </div>
             </div>
         </div>
-    </header>    <main class="sb-main pt-5">
-        <div class="sb-content text-center py-5">
-            <div class="icon-error">
-                <i class="fas fa-exclamation-circle"></i>
-            </div>
-            <h2 class="sb-title">ERROR</h2>
-            <hr class="sb-sub-divider">
-            <p>El <b>tipo</b> o <b>número</b> de documento no se encuentra</p>
-            <?php 
-                if($_GET['error']){
-                    ?>  
-                    <div class="card border-danger m-auto mb-3" style="max-width: 18rem;">
-                        <div class="card-header">Información del error</div>
-                            <div class="card-body text-danger">
-                                <!-- <h5 class="card-title">Danger card title</h5> -->
-                                <p class="card-text">
-                                    <?php
-                                        echo $_GET['error'];
-                                    ?>
-                                </p>
+    </header>
+    <main class="sb-main pt-5">
+        <div class="container">
+            <div class="sb-content text-center py-5">
+                <div class="icon-error">
+                    <i class="fas fa-exclamation-circle"></i>
+                </div>
+                <h2 class="sb-title">ERROR</h2>
+                <hr class="sb-sub-divider">
+                <p>El <b>tipo</b> o <b>número</b> de documento no se encuentra</p>
+                <?php 
+                    if($_GET['error']){
+                        ?>  
+                        <div class="card border-danger m-auto mb-3" style="max-width: 18rem;">
+                            <div class="card-header">Información del error</div>
+                                <div class="card-body text-danger">
+                                    <!-- <h5 class="card-title">Danger card title</h5> -->
+                                    <p class="card-text">
+                                        <?php
+                                            echo $_GET['error'];
+                                        ?>
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                    <?php
-                }
-            
-            ?>
-            <a href="index.html" class="btn btn-primary rounded-pill mt-3">Regresar</a>
+                        <?php
+                    }
+                
+                ?>
 
+                <div class="alert alert-danger py-4 mt-4" role="alert">
+                    <h4 class="alert-heading mb-2"><b>Su número de radicado es:</b></h4>
+                    <p style="font-size: 20px; font-family: Arial, helvetica, sans-serif" class="m-0"><?php echo $_GET['rad']; ?></p>
+                </div>
+                <p>Por favor guarde este <b>número de radicado</b> para el seguimiento de sus solicitudes</p>
+                <a href="index.html" class="btn btn-primary rounded-pill mt-3">Regresar</a>
+
+            </div>
         </div>
     </main>
 

@@ -37,8 +37,9 @@
                 <p>Sus documentos se han cargado exitosamente</p>
                 <div class="alert alert-success py-4" role="alert">
                     <h4 class="alert-heading mb-2"><b>Su número de radicado es:</b></h4>
-                    <p style="font-size: 20px" class="m-0"><?php echo $_GET['rad']; ?></p>
+                    <p style="font-size: 20px; font-family: Arial, helvetica, sans-serif" class="m-0"><?php echo $_GET['rad']; ?></p>
                 </div>
+                <p>Por favor guarde este <b>número de radicado</b> para el seguimiento de sus solicitudes</p>
                 <a href="index.html" class="btn btn-primary rounded-pill mt-3">Regresar</a>
             </div>
         </div>
