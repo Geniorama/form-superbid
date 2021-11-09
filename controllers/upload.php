@@ -6,11 +6,14 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
     if(isset($_POST['rg-tipo-doc'])){
         //Datos carpeta general
-        $tipoDocumento = $_POST['rg-tipo-doc'];
-        $numDocumento = $_POST['rg-num-doc'];
-        $tipoPersona = $_POST['rg-tipo-persona'];
-        $nombreEmpresa = $_POST['rg-nombre-empresa'];
+        $tipoDocumento = filter_var($_POST['rg-tipo-doc'], FILTER_SANITIZE_STRING);
+        $numDocumento = filter_var($_POST['rg-num-doc'], FILTER_SANITIZE_NUMBER_INT);
+        $tipoPersona = filter_var($_POST['rg-tipo-persona'], FILTER_SANITIZE_STRING);
 
+        if(isset($_POST['rg-nombre-empresa'])){
+            $nombreEmpresa = filter_var($_POST['rg-nombre-empresa'], FILTER_SANITIZE_STRING);
+        }
+        
         //Archivos a subir
         $tiposArchivos = $_POST['rg-type-document'];
 
@@ -34,8 +37,6 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
     //Política privacidad
     $privacy_policies = $_POST['privacy-policy'];
 
-    echo $numDocumento;
-
     if($tipoDocumento == "cedula-ciudadania"){
         $abrev = "CC";
     } elseif($tipoDocumento == "nit"){
@@ -49,7 +50,8 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
     //Renombrando archivos
     $nombreArchivo = $abrev . "_" .$numDocumento;
-
+    $idRadicado = uniqid($abrev . "-" .$numDocumento . "-");
+    
     if($numDocumento){
         switch ($tiposArchivos) {
             case 'registro':
@@ -142,9 +144,26 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
                 # code...
                 break;
         }
-        header('Location:'.URL_SITE.'/gracias.html');
+
+        date_default_timezone_set('America/Bogota');
+
+        $to = "angelpublicista@gmail.com";
+        $title = "Archivos subidos - Dropbox Api";
+        $msje = "Un nuevo archivo ha sido subido a la nube desde " . URL_SITE . "\n"  . "\n";
+        // $msje .=  "Datos de subida:" . "\n";
+        // $msje .= "Ruta archivo subido:" . "/" . $folder . $field["name_document"]  . "\n";
+        $msje .= "Fecha: " . date("Y-m-d H:i:s") . "\n" . "\n";
+        $msje .= "ID Radicado: " . $idRadicado . "\n" . "\n";
+        $msje .= "Política de privacidad: " . $GLOBALS['privacy_policies'];
+        $headers = 'From: noreply@superbidcolombia.com' . "\r\n" .
+        'Reply-To: noreply@superbidcolombia.com' . "\r\n" .
+        'X-Mailer: PHP/' . phpversion();
+
+        mail($to, $title, $msje, $headers);
+
+        header('Location:'.URL_SITE.'/gracias.php?rad='. $idRadicado);
     } else {
-        header('Location:'.URL_SITE.'/error.php');
+        header('Location:'.URL_SITE.'/error.php?rad='. $idRadicado . "&error=Debe diligenciar un número de documento");
     }
     
 }
