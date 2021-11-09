@@ -25,16 +25,22 @@
                 </div>
             </div>
         </div>
-    </header>    <main class="sb-main pt-5">
+    </header>
+    <main class="sb-main pt-5">
         <div class="sb-content text-center py-5">
-            <div class="icon-check">
-                <i class="fas fa-check-circle"></i>
+            <div class="container">
+                <div class="icon-check">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2 class="sb-title">GRACIAS</h2>
+                <hr class="sb-sub-divider">
+                <p>Sus documentos se han cargado exitosamente</p>
+                <div class="alert alert-success py-4" role="alert">
+                    <h4 class="alert-heading mb-2"><b>Su número de radicado es:</b></h4>
+                    <p style="font-size: 20px" class="m-0"><?php echo $_GET['rad']; ?></p>
+                </div>
+                <a href="index.html" class="btn btn-primary rounded-pill mt-3">Regresar</a>
             </div>
-            <h2 class="sb-title">GRACIAS</h2>
-            <hr class="sb-sub-divider">
-            <p>Sus documentos se han cargado exitosamente</p>
-            <a href="index.html" class="btn btn-primary rounded-pill mt-3">Regresar</a>
-
         </div>
     </main>
 
