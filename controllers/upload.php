@@ -52,6 +52,8 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
     $nombreArchivo = $abrev . "_" .$numDocumento;
     $idRadicado = uniqid($abrev . "-" .$numDocumento . "-");
     
+    date_default_timezone_set('America/Bogota');
+
     if($numDocumento){
         switch ($tiposArchivos) {
             case 'registro':
@@ -144,17 +146,16 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
                 # code...
                 break;
         }
-
-        date_default_timezone_set('America/Bogota');
-
-        $to = "angelpublicista@gmail.com";
-        $title = "Archivos subidos - Dropbox Api";
-        $msje = "Un nuevo archivo ha sido subido a la nube desde " . URL_SITE . "\n"  . "\n";
+        $to = "angelpublicista.1@gmail.com";
+        $title = $idRadicado . " App Superbid";
+        $msje = "Nueva actividad desde " . URL_SITE . "\n"  . "\n";
         // $msje .=  "Datos de subida:" . "\n";
         // $msje .= "Ruta archivo subido:" . "/" . $folder . $field["name_document"]  . "\n";
-        $msje .= "Fecha: " . date("Y-m-d H:i:s") . "\n" . "\n";
+        $msje .= "Fecha: " . date("Y-m-d") . "\n" . "\n";
+        $msje .= "Hora: " . date("H:i:s") . "\n" . "\n";
+        $msje .= "Actividad exitosa" . "\n" . "\n";
         $msje .= "ID Radicado: " . $idRadicado . "\n" . "\n";
-        $msje .= "Política de privacidad: " . $GLOBALS['privacy_policies'];
+        // $msje .= "Política de privacidad: " . $GLOBALS['privacy_policies'];
         $headers = 'From: noreply@superbidcolombia.com' . "\r\n" .
         'Reply-To: noreply@superbidcolombia.com' . "\r\n" .
         'X-Mailer: PHP/' . phpversion();
@@ -163,6 +164,23 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
         header('Location:'.URL_SITE.'/gracias.php?rad='. $idRadicado);
     } else {
+
+        $to = "angelpublicista.1@gmail.com";
+        $title = $idRadicado . " App Superbid";
+        $msje = "Nueva actividad desde " . URL_SITE . "\n"  . "\n";
+        // $msje .=  "Datos de subida:" . "\n";
+        // $msje .= "Ruta archivo subido:" . "/" . $folder . $field["name_document"]  . "\n";
+        $msje .= "Fecha: " . date("Y-m-d") . "\n" . "\n";
+        $msje .= "Hora: " . date("H:i:s") . "\n" . "\n";
+        $msje .= "Actividad fallida" . "\n" . "\n";
+        $msje .= "ID Radicado: " . $idRadicado . "\n" . "\n";
+        // $msje .= "Política de privacidad: " . $GLOBALS['privacy_policies'];
+        $headers = 'From: noreply@superbidcolombia.com' . "\r\n" .
+        'Reply-To: noreply@superbidcolombia.com' . "\r\n" .
+        'X-Mailer: PHP/' . phpversion();
+
+        mail($to, $title, $msje, $headers);
+
         header('Location:'.URL_SITE.'/error.php?rad='. $idRadicado . "&error=Debe diligenciar un número de documento");
     }
     

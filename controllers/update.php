@@ -34,7 +34,8 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
         $campos_registro = array($field_documento, $field_rut);
     }
 
-
+    date_default_timezone_set('America/Bogota');
+    
     try {
         $datos = dataFolder('/Registro/' . $nombreArchivo);
 
@@ -42,10 +43,42 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
             // deleteFile($campo, "Registro/" . $nombreArchivo );
             uploadFile($campo,"Registro/" . $nombreArchivo  );
 
+            $to = "angelpublicista.1@gmail.com";
+            $title = $idRadicado . " App Superbid";
+            $msje = "Nueva actividad desde " . URL_SITE . "\n"  . "\n";
+            // $msje .=  "Datos de subida:" . "\n";
+            // $msje .= "Ruta archivo subido:" . "/" . $folder . $field["name_document"]  . "\n";
+            $msje .= "Fecha: " . date("Y-m-d") . "\n" . "\n";
+            $msje .= "Hora: " . date("H:i:s") . "\n" . "\n";
+            $msje .= "Actividad exitosa" . "\n" . "\n";
+            $msje .= "ID Radicado: " . $idRadicado . "\n" . "\n";
+            // $msje .= "Política de privacidad: " . $GLOBALS['privacy_policies'];
+            $headers = 'From: noreply@superbidcolombia.com' . "\r\n" .
+            'Reply-To: noreply@superbidcolombia.com' . "\r\n" .
+            'X-Mailer: PHP/' . phpversion();
+
+            mail($to, $title, $msje, $headers);
+
             header('Location:'.URL_SITE.'/gracias.php?rad='. $idRadicado);
         }
        
     } catch (Exception $e) {
+        $to = "angelpublicista.1@gmail.com";
+        $title = $idRadicado . " App Superbid";
+        $msje = "Nueva actividad desde " . URL_SITE . "\n"  . "\n";
+        // $msje .=  "Datos de subida:" . "\n";
+        // $msje .= "Ruta archivo subido:" . "/" . $folder . $field["name_document"]  . "\n";
+        $msje .= "Fecha: " . date("Y-m-d") . "\n" . "\n";
+        $msje .= "Hora: " . date("H:i:s") . "\n" . "\n";
+        $msje .= "Actividad fallida" . "\n" . "\n";
+        $msje .= "ID Radicado: " . $idRadicado . "\n" . "\n";
+        // $msje .= "Política de privacidad: " . $GLOBALS['privacy_policies'];
+        $headers = 'From: noreply@superbidcolombia.com' . "\r\n" .
+        'Reply-To: noreply@superbidcolombia.com' . "\r\n" .
+        'X-Mailer: PHP/' . phpversion();
+
+        mail($to, $title, $msje, $headers);
+
         header('Location:'.URL_SITE.'/error.php?error='.$e->getMessage().'&rad='.$idRadicado.'');
     }
 

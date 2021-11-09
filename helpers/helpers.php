@@ -32,7 +32,8 @@ if(!function_exists('uploadFile')){
             $msje = "Un nuevo archivo ha sido subido a la nube desde " . URL_SITE . "\n"  . "\n";
             $msje .=  "Datos de subida:" . "\n";
             $msje .= "Ruta archivo subido:" . "/" . $folder . $field["name_document"]  . "\n";
-            $msje .= "Fecha: " . date("Y-m-d H:i:s") . "\n" . "\n";
+            $msje .= "Fecha: " . date("Y-m-d") . "\n" . "\n";
+            $msje .= "Hora: " . date("H:i:s") . "\n" . "\n";
             $msje .= "Política de privacidad: " . $GLOBALS['privacy_policies'];
             $headers = 'From: xxxxx@email.com' . "\r\n" .
             'Reply-To: xxxxx@email.com' . "\r\n" .
