@@ -146,17 +146,15 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
                 # code...
                 break;
         }
-        $to = "angelpublicista.1@gmail.com";
+        $to = ADMIN_EMAIL;
         $title = $idRadicado . " App Superbid";
         $msje = "Nueva actividad desde " . URL_SITE . "\n"  . "\n";
-        // $msje .=  "Datos de subida:" . "\n";
-        // $msje .= "Ruta archivo subido:" . "/" . $folder . $field["name_document"]  . "\n";
         $msje .= "Fecha: " . date("Y-m-d") . "\n" . "\n";
         $msje .= "Hora: " . date("H:i:s") . "\n" . "\n";
         $msje .= "Actividad exitosa" . "\n" . "\n";
         $msje .= "ID Radicado: " . $idRadicado . "\n" . "\n";
         // $msje .= "Política de privacidad: " . $GLOBALS['privacy_policies'];
-        $headers = 'From: noreply@superbidcolombia.com' . "\r\n" .
+        $headers = 'From: notification <noreply@superbidcolombia.com>' . "\r\n" .
         'Reply-To: noreply@superbidcolombia.com' . "\r\n" .
         'X-Mailer: PHP/' . phpversion();
 
@@ -165,17 +163,15 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
         header('Location:'.URL_SITE.'/gracias.php?rad='. $idRadicado);
     } else {
 
-        $to = "angelpublicista.1@gmail.com";
+        $to = ADMIN_EMAIL;
         $title = $idRadicado . " App Superbid";
         $msje = "Nueva actividad desde " . URL_SITE . "\n"  . "\n";
-        // $msje .=  "Datos de subida:" . "\n";
-        // $msje .= "Ruta archivo subido:" . "/" . $folder . $field["name_document"]  . "\n";
         $msje .= "Fecha: " . date("Y-m-d") . "\n" . "\n";
         $msje .= "Hora: " . date("H:i:s") . "\n" . "\n";
         $msje .= "Actividad fallida" . "\n" . "\n";
         $msje .= "ID Radicado: " . $idRadicado . "\n" . "\n";
         // $msje .= "Política de privacidad: " . $GLOBALS['privacy_policies'];
-        $headers = 'From: noreply@superbidcolombia.com' . "\r\n" .
+        $headers = 'From: notification <noreply@superbidcolombia.com>' . "\r\n" .
         'Reply-To: noreply@superbidcolombia.com' . "\r\n" .
         'X-Mailer: PHP/' . phpversion();
 

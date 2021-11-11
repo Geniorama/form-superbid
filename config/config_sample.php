@@ -11,3 +11,6 @@ define('DROPBOX_TOKEN', 'xxxxxxxxxxxxxxxxxx');
 
 //SITE'S URL
 define('URL_SITE', 'http://localhost/form-superbid');
+
+// ADMIN EMAIL
+define('ADMIN_EMAIL', 'admin@mydomain.com');

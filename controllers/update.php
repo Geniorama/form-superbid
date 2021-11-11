@@ -43,7 +43,7 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
             // deleteFile($campo, "Registro/" . $nombreArchivo );
             uploadFile($campo,"Registro/" . $nombreArchivo  );
 
-            $to = "angelpublicista.1@gmail.com";
+            $to = ADMIN_EMAIL;
             $title = $idRadicado . " App Superbid";
             $msje = "Nueva actividad desde " . URL_SITE . "\n"  . "\n";
             // $msje .=  "Datos de subida:" . "\n";
@@ -53,7 +53,7 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
             $msje .= "Actividad exitosa" . "\n" . "\n";
             $msje .= "ID Radicado: " . $idRadicado . "\n" . "\n";
             // $msje .= "Política de privacidad: " . $GLOBALS['privacy_policies'];
-            $headers = 'From: noreply@superbidcolombia.com' . "\r\n" .
+            $headers = 'From: notification <noreply@superbidcolombia.com>' . "\r\n" .
             'Reply-To: noreply@superbidcolombia.com' . "\r\n" .
             'X-Mailer: PHP/' . phpversion();
 
@@ -63,7 +63,7 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
         }
        
     } catch (Exception $e) {
-        $to = "angelpublicista.1@gmail.com";
+        $to = ADMIN_EMAIL;
         $title = $idRadicado . " App Superbid";
         $msje = "Nueva actividad desde " . URL_SITE . "\n"  . "\n";
         // $msje .=  "Datos de subida:" . "\n";
@@ -73,7 +73,7 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
         $msje .= "Actividad fallida" . "\n" . "\n";
         $msje .= "ID Radicado: " . $idRadicado . "\n" . "\n";
         // $msje .= "Política de privacidad: " . $GLOBALS['privacy_policies'];
-        $headers = 'From: noreply@superbidcolombia.com' . "\r\n" .
+        $headers = 'From: notification <noreply@superbidcolombia.com>' . "\r\n" .
         'Reply-To: noreply@superbidcolombia.com' . "\r\n" .
         'X-Mailer: PHP/' . phpversion();
 
