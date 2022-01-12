@@ -40,6 +40,25 @@
                     <p style="font-size: 20px; font-family: Arial, helvetica, sans-serif" class="m-0"><?php echo $_GET['rad']; ?></p>
                 </div>
                 <p>Por favor guarde este <b>número de radicado</b> para el seguimiento de sus solicitudes</p>
+
+                <div class="alert alert-warning py-4 mt-5" role="alert">
+                    <h4 class="alert-heading mb-2"><b>Detalles de la carga:</b></h4>
+                    <div class="text-left px-4">
+                        <h6 class="font-weight-bold mb-3">Datos de usuario:</h6>
+                        <ul style="font-family: Arial, helvetica, sans-serif">
+                            <li><b>Tipo documento:</b> <?php echo $_GET['t-doc']; ?></li>
+                            <li><b>Número documento:</b> <?php echo $_GET['n-doc']; ?></li>
+                        </ul>
+
+                        <h6 class="font-weight-bold mb-3 mt-5">Datos de carga:</h6>
+                        <ul style="font-family: Arial, helvetica, sans-serif">
+                            <?php if(strlen($_GET['etapa']) > 0): ?>
+                            <li><b>Etapa:</b> <?php echo $_GET['etapa']; ?></li>
+                            <?php endif ?>
+                            <li><b>Documento(s) cargado(s):</b> <?php echo $_GET['archivo']; ?></li>
+                        </ul>
+                    </div>
+                </div>
                 <a href="index.html" class="btn btn-primary rounded-pill mt-3">Regresar</a>
             </div>
         </div>

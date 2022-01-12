@@ -1,6 +1,7 @@
 <?php
 
 require_once "./../helpers/helpers.php";
+require_once "./../config/config.php";
 
 if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
@@ -25,7 +26,6 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
         $tipoDocumento = $_POST['wrr-tipo-doc'];
         $numDocumento = $_POST['wrr-num-doc'];
         $tipoPersona = $_POST['wrr-tipo-persona'];
-        // $nombreEmpresa = $_POST['wrr-nombre-empresa'];
 
         //Archivos a subir
         $tiposArchivos = $_POST['wrr-type-document'];
@@ -51,6 +51,8 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
     //Renombrando archivos
     $nombreArchivo = $abrev . "_" .$numDocumento;
     $idRadicado = uniqid($abrev . "-" .$numDocumento . "-");
+    $nombreCarpeta;
+    $archivoSubido = array();
     
     date_default_timezone_set('America/Bogota');
 
@@ -58,125 +60,252 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
         switch ($tiposArchivos) {
             case 'registro':
     
-                $field_documento = tempFile('rg-field-documento', 'CC');
-                $field_rut = tempFile('rg-field-rut', 'RUT');
+                $field_documento = [
+                    'tempFile' => tempFile('rg-field-documento', 'CC'),
+                    'field' => 'Documento identificación'
+                ];
+                $field_rut = [
+                    'tempFile' => tempFile('rg-field-rut', 'RUT'),
+                    'field' => 'RUT'
+                ];
+
+                $nombreCarpeta = "Registro";
     
                 if($tipoPersona == "p-juridica"){
-                    $field_camara_comercio = tempFile('rg-field-camara-comercio', 'CCMO');
-                    $field_rep = tempFile('rg-field-cedula-rep', 'CC-REP');
+                    $field_camara_comercio = [
+                        'tempFile' => tempFile('rg-field-camara-comercio', 'CCMO'),
+                        'field' => 'Cámara de Comercio'
+                    ];
+
+                    $field_rep = [
+                        'tempFile' => tempFile('rg-field-cedula-rep', 'CC-REP'),
+                        'field' => 'Documento Representante Legal'
+                    ];
+                    
                     $campos_registro = array($field_documento, $field_rut, $field_camara_comercio, $field_rep);
                 } else{
                     $campos_registro = array($field_documento, $field_rut);
                 }
     
                 foreach ($campos_registro as $campo) {
-                    uploadFile($campo,"Registro/" . $nombreArchivo  );
+                    if($campo['tempFile'] && $campo['field']){
+                        array_push($archivoSubido, $campo['field']);
+                        uploadFile($campo['tempFile'], "Registro/" . $nombreArchivo);
+                    }
                 }
     
                 break;
             
             case 'creacion':
     
-                $field_creacion_cliente = tempFile('rg-field-creacion-cliente', 'FORMATO');
-                $field_anexo_1 = tempFile('rg-field-anexo-1', 'ANEXO1');
-                $field_anexo_2 = tempFile('rg-field-anexo-2', 'ANEXO2');
-                $field_anexo_3 = tempFile('rg-field-anexo-3', 'ANEXO3');
-                $field_anexo_4 = tempFile('rg-field-anexo-4', 'ANEXO4');
-                $field_anexo_5 = tempFile('rg-field-anexo-5', 'ANEXO5');
+                $nombreCarpeta = "Creación";
+
+                $field_creacion_cliente = [
+                    'tempFile' => tempFile('rg-field-creacion-cliente', 'FORMATO'),
+                    'field' => 'Formato creación de cliente'
+                ];
+
+                $field_anexo_1 = [
+                    'tempFile' => tempFile('rg-field-anexo-1', 'ANEXO1'),
+                    'field' => 'Creación - Anexo 1'
+                ];
+
+                $field_anexo_2 = [
+                    'tempFile' => tempFile('rg-field-anexo-2', 'ANEXO2'),
+                    'field' => 'Creación - Anexo 2'
+                ];
+
+                $field_anexo_3 = [
+                    'tempFile' => tempFile('rg-field-anexo-3', 'ANEXO3'),
+                    'field' => 'Creación - Anexo 3'
+                ];
+
+                $field_anexo_4 = [
+                    'tempFile' => tempFile('rg-field-anexo-4', 'ANEXO4'),
+                    'field' => 'Creación - Anexo 4'
+                ];
+
+                $field_anexo_5 = [
+                    'tempFile' => tempFile('rg-field-anexo-5', 'ANEXO5'),
+                    'field' => 'Creación - Anexo 5'
+                ];
     
                 $campos_creacion = array($field_creacion_cliente, $field_anexo_1, $field_anexo_2, $field_anexo_3, $field_anexo_4, $field_anexo_5);
-    
+
                 foreach ($campos_creacion as $campo_creacion) {
-                    uploadFile($campo_creacion, "Creacion de cliente/" . $nombreEmpresa . "/" . $nombreArchivo);
+                    if($campo_creacion['tempFile'] && $campo_creacion['field']){
+                        array_push($archivoSubido, $campo_creacion['field']);
+                        uploadFile($campo_creacion['tempFile'], "Creacion de cliente/" . $nombreEmpresa . "/" . $nombreArchivo);
+                    } 
                 }
                 
                 break;
     
             case 'pagos':
     
-                $field_carta_tercero = tempFile('rg-field-carta-tercero', 'CT');
-                $field_soporte_pago_lote = tempFile('rg-field-soporte-pago-lote', 'SPL');
-                $field_soporte_pago_comision = tempFile('rg-field-soporte-pago-comision', 'SPC');
-                $field_soporte_pago_traspasos = tempFile('rg-field-soporte-pago-traspasos', 'SPT');
-                $field_soporte_pago_fianza = tempFile('rg-field-soporte-pago-fianza', 'SPF');
+                $nombreCarpeta = "Pagos";
+
+                $field_carta_tercero = [
+                    'tempFile' => tempFile('rg-field-carta-tercero', 'CT'),
+                    'field' => 'Carta Tercero'
+                ];
+
+                $field_soporte_pago_lote = [
+                    'tempFile' => tempFile('rg-field-soporte-pago-lote', 'SPL'),
+                    'field' => 'Soporte pago lote'
+                ];
+
+                $field_soporte_pago_comision = [
+                    'tempFile' => tempFile('rg-field-soporte-pago-comision', 'SPC'),
+                    'field' => 'Soporte pago comision'
+                ];
+
+                $field_soporte_pago_traspasos = [
+                    'tempFile' => tempFile('rg-field-soporte-pago-traspasos', 'SPT'),
+                    'field' => 'Soporte pago traspasos'
+                ];
+
+                $field_soporte_pago_fianza = [
+                    'tempFile' => tempFile('rg-field-soporte-pago-fianza', 'SPF'),
+                    'field' => 'Soporte pago fianza'
+                ];
     
                 $campos_pagos = array($field_carta_tercero, $field_soporte_pago_lote, $field_soporte_pago_comision, $field_soporte_pago_traspasos, $field_soporte_pago_fianza);
     
                 foreach ($campos_pagos as $campo_pago) {
-                    uploadFile($campo_pago, "Pagos/" . $nombreSubasta . "/" . $nombreArchivo);
+                    if($campo_pago['tempFile'] && $campo_pago['field']){
+                        array_push($archivoSubido, $campo_pago['field']);
+                        uploadFile($campo_pago['tempFile'], "Pagos/" . $nombreSubasta . "/" . $nombreArchivo);
+                    } 
                 }
     
                 break;
             
             case 'garantia':
 
+                $nombreCarpeta = "Garantía";
+
                 if(isset($_POST['rg-tipo-doc'])){
-                    $field_soporte_garantia = tempFile('rg-field-soporte-garantia', 'SG');
-                    $field_cert_bancaria = tempFile('rg-field-certificacion-bancaria', 'CB');
-                    $field_docs_garantias = tempFile('rg-field-documentos-garantias', 'DG');
-                    $field_parafiscales = tempFile('rg-field-parafiscales', 'PF');
+                    $field_soporte_garantia = [
+                        'tempFile' => tempFile('rg-field-soporte-garantia', 'SG'),
+                        'field' => 'Soporte Garantía'
+                    ];
+
+                    $field_cert_bancaria = [
+                        'tempFile' => tempFile('rg-field-certificacion-bancaria', 'CB'),
+                        'field'=> 'Certificación bancaria'
+                    ];
+
+                    $field_docs_garantias = [
+                        'tempFile' => tempFile('rg-field-documentos-garantias', 'DG'),
+                        'field' => 'Documentos Garantías'
+                    ];
+
+                    $field_parafiscales = [
+                        'tempFile' => tempFile('rg-field-parafiscales', 'PF'),
+                        'field' => 'Parafiscales'
+                    ];
                 } else {
-                    $field_soporte_garantia = tempFile('wrr-field-soporte-garantia', 'SG');
-                    $field_cert_bancaria = tempFile('wrr-field-certificacion-bancaria', 'CB');
-                    $field_docs_garantias = tempFile('wrr-field-documentos-garantias', 'DG');
-                    $field_parafiscales = tempFile('wrr-field-parafiscales', 'PF');
+                    $field_soporte_garantia = [
+                        'tempFile' => tempFile('wrr-field-soporte-garantia', 'SG'),
+                        'field' => 'Soporte Garantía'
+                    ];
+                    
+                    $field_cert_bancaria = [
+                        'tempFile' => tempFile('wrr-field-certificacion-bancaria', 'CB'),
+                        'field'=> 'Certificación bancaria'
+                    ];
+                    
+                    $field_docs_garantias = [
+                        'tempFile' => tempFile('wrr-field-documentos-garantias', 'DG'),
+                        'field' => 'Documentos Garantías'
+                    ];
+
+                    $field_parafiscales = [
+                        'tempFile' => tempFile('wrr-field-parafiscales', 'PF'),
+                        'field' => 'Parafiscales'
+                    ];
                 }
     
                 $campos_garantia = array($field_soporte_garantia, $field_cert_bancaria, $field_docs_garantias, $field_parafiscales);
-                
+
                 foreach ($campos_garantia as $campo_garantia) {
-                    uploadFile($campo_garantia, "Garantia/" . $nombreSubasta . "/" . $nombreArchivo);
+                    if($campo_garantia['tempFile'] && $campo_garantia['field']){
+                        array_push($archivoSubido, $campo_garantia['field']);
+                        uploadFile($campo_garantia['tempFile'], "Garantia/" . $nombreSubasta . "/" . $nombreArchivo);
+                    } 
                 }
     
                 break;
     
             case 'retiros':
-                $field_planilla_aportes = tempFile('rg-field-planilla-aportes', 'PA');
-                $field_poliza = tempFile('rg-field-poliza', 'POL');
-                $field_rtm = tempFile('rg-field-rtm', 'RTM');
-                $field_soat = tempFile('rg-field-soat', 'SOAT');
+
+                $nombreCarpeta = "Retiros";
+
+                $field_planilla_aportes = [
+                    'tempFile' => tempFile('rg-field-planilla-aportes', 'PA'),
+                    'field' => 'Planilla aportes'
+                ];
+
+                $field_poliza = [
+                    'tempFile' => tempFile('rg-field-poliza', 'POL'),
+                    'field' => 'Poliza'
+                ];
+
+                $field_rtm = [
+                    'tempFile' => tempFile('rg-field-rtm', 'RTM'),
+                    'field' => 'RTM'
+                ];
+
+                $field_soat = [
+                    'tempFile' => tempFile('rg-field-soat', 'SOAT'),
+                    'field' => 'SOAT'
+                ];
     
                 $campos_retiros = array($field_planilla_aportes, $field_poliza, $field_rtm, $field_soat);
 
                 foreach ($campos_retiros as $campo_retiros) {
-                    uploadFile($campo_retiros, "Retiros/" . $nombreSubasta . "/" . $nombreArchivo);
+                    if($campo_retiros['tempFile'] && $campo_retiros['field']){
+                        array_push($archivoSubido, $campo_retiros['field']);
+                        uploadFile($campo_retiros['tempFile'], "Retiros/" . $nombreSubasta . "/" . $nombreArchivo);
+                    } 
                 }
+                
                 break;
             default:
                 # code...
                 break;
         }
-        $to = "angelpublicista.1@gmail.com";
+
+        $archivoSubidoStr = implode(', ', $archivoSubido);
+
+        $to = EMAIL_ADMIN;
         $title = $idRadicado . " App Superbid";
         $msje = "Nueva actividad desde " . URL_SITE . "\n"  . "\n";
-        // $msje .=  "Datos de subida:" . "\n";
-        // $msje .= "Ruta archivo subido:" . "/" . $folder . $field["name_document"]  . "\n";
-        $msje .= "Fecha: " . date("Y-m-d") . "\n" . "\n";
-        $msje .= "Hora: " . date("H:i:s") . "\n" . "\n";
-        $msje .= "Actividad exitosa" . "\n" . "\n";
-        $msje .= "ID Radicado: " . $idRadicado . "\n" . "\n";
+        $msje .= "DATOS DE SUBIDA" . "\n";
+        $msje .= "Etapa: " . $nombreCarpeta  . "\n";
+        $msje .= "Documento cargado: " . $archivoSubidoStr  . "\n";
+        $msje .= "Fecha: " . date("Y-m-d") . "\n";
+        $msje .= "Hora: " . date("H:i:s") . "\n";
+        $msje .= "Actividad exitosa" . "\n";
+        $msje .= "ID Radicado: " . $idRadicado . "\n" ;
         // $msje .= "Política de privacidad: " . $GLOBALS['privacy_policies'];
         $headers = 'From: noreply@superbidcolombia.com' . "\r\n" .
-        'Reply-To: noreply@superbidcolombia.com' . "\r\n" .
         'X-Mailer: PHP/' . phpversion();
 
         mail($to, $title, $msje, $headers);
 
-        header('Location:'.URL_SITE.'/gracias.php?rad='. $idRadicado);
+        header('Location:'.URL_SITE.'/gracias.php?rad='. $idRadicado . '&t-doc=' . $tipoDocumento . '&n-doc=' . $numDocumento . '&etapa=' . $nombreCarpeta . '&archivo=' . $archivoSubidoStr);
     } else {
 
-        $to = "angelpublicista.1@gmail.com";
+        $to = EMAIL_ADMIN;
         $title = $idRadicado . " App Superbid";
         $msje = "Nueva actividad desde " . URL_SITE . "\n"  . "\n";
-        // $msje .=  "Datos de subida:" . "\n";
-        // $msje .= "Ruta archivo subido:" . "/" . $folder . $field["name_document"]  . "\n";
         $msje .= "Fecha: " . date("Y-m-d") . "\n" . "\n";
         $msje .= "Hora: " . date("H:i:s") . "\n" . "\n";
         $msje .= "Actividad fallida" . "\n" . "\n";
         $msje .= "ID Radicado: " . $idRadicado . "\n" . "\n";
-        // $msje .= "Política de privacidad: " . $GLOBALS['privacy_policies'];
         $headers = 'From: noreply@superbidcolombia.com' . "\r\n" .
-        'Reply-To: noreply@superbidcolombia.com' . "\r\n" .
         'X-Mailer: PHP/' . phpversion();
 
         mail($to, $title, $msje, $headers);

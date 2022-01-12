@@ -27,20 +27,6 @@ if(!function_exists('uploadFile')){
 
             date_default_timezone_set('America/Bogota');
 
-            $to = "xxxxx@email.com";
-            $title = "Archivos subidos - Dropbox Api";
-            $msje = "Un nuevo archivo ha sido subido a la nube desde " . URL_SITE . "\n"  . "\n";
-            $msje .=  "Datos de subida:" . "\n";
-            $msje .= "Ruta archivo subido:" . "/" . $folder . $field["name_document"]  . "\n";
-            $msje .= "Fecha: " . date("Y-m-d") . "\n" . "\n";
-            $msje .= "Hora: " . date("H:i:s") . "\n" . "\n";
-            $msje .= "Política de privacidad: " . $GLOBALS['privacy_policies'];
-            $headers = 'From: xxxxx@email.com' . "\r\n" .
-            'Reply-To: xxxxx@email.com' . "\r\n" .
-            'X-Mailer: PHP/' . phpversion();
-
-            // mail($to, $title, $msje, $headers);
-
             return true;
         }
     }
@@ -71,7 +57,6 @@ if(!function_exists('dataFolder')){
         if($folderName){
             $fileMetaData = $dropbox->getMetadata($folderName);
             return $fileMetaData;
-            // /cedula-ciudadania_213213213/Documentos registro/cedula_ciudadania.png
         }
     }
 }
