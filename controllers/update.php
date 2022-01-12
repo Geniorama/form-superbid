@@ -31,7 +31,7 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
     ];
 
     $field_rut = [
-        'tempField' => tempFile('upt-field-rut', 'RUT'),
+        'tempFile' => tempFile('upt-field-rut', 'RUT'),
         'field' => 'RUT'
     ];
 
@@ -57,7 +57,6 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
         foreach ($campos_registro as $campo) {
             if($campo['tempFile'] && $campo['field']){
-                $archivoAct = $campo['field'];
                 array_push($archivoAct, $campo['field']);
                 uploadFile($campo['tempFile'], "Registro/" . $nombreArchivo);
             }
@@ -81,7 +80,7 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
         mail($to, $title, $msje, $headers);
 
-        header('Location:'.URL_SITE.'/gracias.php?rad='. $idRadicado . '&t-doc=' . $tipoDocumento . '&n-doc=' . $numDocumento . '&etapa=Actualización Registro' . '&archivo=' . $archivoAct);
+        header('Location:'.URL_SITE.'/gracias.php?rad='. $idRadicado . '&t-doc=' . $tipoDocumento . '&n-doc=' . $numDocumento . '&etapa=Actualización Registro' . '&archivo=' . $archivoActStr);
        
     } catch (Exception $e) {
         $to = EMAIL_ADMIN;
