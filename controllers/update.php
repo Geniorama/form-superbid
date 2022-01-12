@@ -92,7 +92,7 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
         $msje .= "Actividad fallida" . "\n" . "\n";
         $msje .= "ID Radicado: " . $idRadicado . "\n" . "\n";
         // $msje .= "Política de privacidad: " . $GLOBALS['privacy_policies'];
-        $headers = 'From: noreply@superbidcolombia.com' . "\r\n" .
+        $headers = 'From: notification <noreply@superbidcolombia.com>' . "\r\n" .
         'Reply-To: noreply@superbidcolombia.com' . "\r\n" .
         'X-Mailer: PHP/' . phpversion();
 
