@@ -23,11 +23,15 @@ if(!function_exists('uploadFile')){
         $dropbox = $database->connectDr();
         
         if($field && $folder){
-            $file = $dropbox->simpleUpload($field["document"], "/" . $folder . $field["name_document"],['autorename' => true]);
+            try {
+                $file = $dropbox->simpleUpload($field["document"], "/" . $folder . $field["name_document"],['autorename' => true]);
+                date_default_timezone_set('America/Bogota');
 
-            date_default_timezone_set('America/Bogota');
-
-            return true;
+                return true;
+            } catch (Exception $e) {
+                echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+            }
+            
         }
     }
 }
