@@ -19,7 +19,7 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
         $tiposArchivos = $_POST['rg-type-document'];
 
          // Campo Nombre subasta
-        if($tiposArchivos != "creacion" && $tiposArchivos != "registro"){
+        if($tiposArchivos != "creacion" && $tiposArchivos != "registro" && $tiposArchivos != "registro-act"){
             $nombreSubasta = filter_var($_POST["rg-nombre-subasta"], FILTER_SANITIZE_STRING);   
         }
     } else {
@@ -53,11 +53,92 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
     $idRadicado = uniqid($abrev . "-" .$numDocumento . "-");
     $nombreCarpeta;
     $archivoSubido = array();
+    $archivoAct = array();
     
     date_default_timezone_set('America/Bogota');
 
     if($numDocumento){
         switch ($tiposArchivos) {
+            case 'registro-act':
+    
+                $field_documento_act = [
+                    'tempFile' => tempFile('rg-field-documento_act', 'CC'),
+                    'field' => 'Documento identificación'
+                ];
+                $field_rut_act = [
+                    'tempFile' => tempFile('rg-field-rut_act', 'RUT'),
+                    'field' => 'RUT'
+                ];
+
+                $nombreCarpeta = "Registro";
+    
+                if($tipoPersona == "p-juridica"){
+                    $field_camara_comercio_act = [
+                        'tempFile' => tempFile('rg-field-camara-comercio_act', 'CCMO'),
+                        'field' => 'Cámara de Comercio'
+                    ];
+
+                    $field_rep_act = [
+                        'tempFile' => tempFile('rg-field-cedula-rep_act', 'CC-REP'),
+                        'field' => 'Documento Representante Legal'
+                    ];
+                    
+                    $campos_registro_act = array($field_documento_act, $field_rut_act, $field_camara_comercio_act, $field_rep_act);
+                } else{
+                    $campos_registro_act = array($field_documento_act, $field_rut_act);
+                }
+
+                try {
+                    $datos = dataFolder('/Registro/' . $nombreArchivo);
+            
+                    foreach ($campos_registro_act as $campo) {
+                        if($campo['tempFile'] && $campo['field']){
+                            array_push($archivoAct, $campo['field']);
+                            uploadFile($campo['tempFile'], "Registro/" . $nombreArchivo);
+                        }
+                    }
+            
+                    $archivoActStr = implode(', ', $archivoAct);
+            
+                    $to = EMAIL_ADMIN;
+                    $title = $idRadicado . " App Superbid";
+                    $msje = "Nueva actividad desde " . URL_SITE . "\n"  . "\n";
+                    $msje .= "DATOS DE SUBIDA" . "\n";
+                    $msje .= "Etapa: Actualización Registro" . "\n";
+                    $msje .= "Documento(s) cargado(s): " . $archivoActStr  . "\n";
+                    $msje .= "Fecha: " . date("Y-m-d") . "\n";
+                    $msje .= "Hora: " . date("H:i:s") . "\n";
+                    $msje .= "Actividad exitosa" . "\n" . "\n";
+                    $msje .= "ID Radicado: " . $idRadicado . "\n" . "\n";
+                    // $msje .= "Política de privacidad: " . $GLOBALS['privacy_policies'];
+                    $headers = 'From: noreply@superbidcolombia.com' . "\r\n" .
+                    'X-Mailer: PHP/' . phpversion();
+            
+                    mail($to, $title, $msje, $headers);
+            
+                    header('Location:'.URL_SITE.'/gracias.php?rad='. $idRadicado . '&t-doc=' . $tipoDocumento . '&n-doc=' . $numDocumento . '&etapa=Actualización Registro' . '&archivo=' . $archivoActStr);
+                   
+                } catch (Exception $e) {
+                    $to = EMAIL_ADMIN;
+                    $title = $idRadicado . " App Superbid";
+                    $msje = "Nueva actividad desde " . URL_SITE . "\n"  . "\n";
+                    $msje .= "Fecha: " . date("Y-m-d") . "\n" . "\n";
+                    $msje .= "Hora: " . date("H:i:s") . "\n" . "\n";
+                    $msje .= "Actividad fallida" . "\n" . "\n";
+                    $msje .= "ID Radicado: " . $idRadicado . "\n" . "\n";
+                    // $msje .= "Política de privacidad: " . $GLOBALS['privacy_policies'];
+                    $headers = 'From: notification <noreply@superbidcolombia.com>' . "\r\n" .
+                    'Reply-To: noreply@superbidcolombia.com' . "\r\n" .
+                    'X-Mailer: PHP/' . phpversion();
+            
+                    mail($to, $title, $msje, $headers);
+            
+                    header('Location:'.URL_SITE.'/error.php?error='.$e->getMessage().'&rad='.$idRadicado.'');
+
+                    
+                }
+    
+                die;
             case 'registro':
     
                 $field_documento = [
@@ -95,6 +176,7 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
                 }
     
                 break;
+
             
             case 'creacion':
     
@@ -279,11 +361,24 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
         $archivoSubidoStr = implode(', ', $archivoSubido);
 
+        $etapa;
+        $etapaMsje;
+
+        if($tiposArchivos == "registro-act"){
+            $etapa = "Etapa: " . $nombreCarpeta  . " Actualización" . "\n";
+            $etapaMsje = $nombreCarpeta  . " Actualización";
+        } else {
+            $etapa = "Etapa: " . $nombreCarpeta  . "\n";
+            $etapaMsje = $nombreCarpeta;
+        }
+
+
+
         $to = EMAIL_ADMIN;
         $title = $idRadicado . " App Superbid";
         $msje = "Nueva actividad desde " . URL_SITE . "\n"  . "\n";
         $msje .= "DATOS DE SUBIDA" . "\n";
-        $msje .= "Etapa: " . $nombreCarpeta  . "\n";
+        $msje .= $etapa;
         $msje .= "Documento cargado: " . $archivoSubidoStr  . "\n";
         $msje .= "Fecha: " . date("Y-m-d") . "\n";
         $msje .= "Hora: " . date("H:i:s") . "\n";
@@ -295,7 +390,7 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
         mail($to, $title, $msje, $headers);
 
-        header('Location:'.URL_SITE.'/gracias.php?rad='. $idRadicado . '&t-doc=' . $tipoDocumento . '&n-doc=' . $numDocumento . '&etapa=' . $nombreCarpeta . '&archivo=' . $archivoSubidoStr);
+        header('Location:'.URL_SITE.'/gracias.php?rad='. $idRadicado . '&t-doc=' . $tipoDocumento . '&n-doc=' . $numDocumento . '&etapa=' . $etapaMsje . '&archivo=' . $archivoSubidoStr);
     } else {
 
         $to = EMAIL_ADMIN;
