@@ -99,6 +99,8 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
                     }
             
                     $archivoActStr = implode(', ', $archivoAct);
+                    $fecha = date("Y-m-d");
+                    $hora = date("H:i:s");
             
                     $to = EMAIL_ADMIN;
                     $title = $idRadicado . " App Superbid";
@@ -106,8 +108,8 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
                     $msje .= "DATOS DE SUBIDA" . "\n";
                     $msje .= "Etapa: Actualización Registro" . "\n";
                     $msje .= "Documento(s) cargado(s): " . $archivoActStr  . "\n";
-                    $msje .= "Fecha: " . date("Y-m-d") . "\n";
-                    $msje .= "Hora: " . date("H:i:s") . "\n";
+                    $msje .= "Fecha: " . $fecha . "\n";
+                    $msje .= "Hora: " . $hora . "\n";
                     $msje .= "Actividad exitosa" . "\n" . "\n";
                     $msje .= "ID Radicado: " . $idRadicado . "\n" . "\n";
                     // $msje .= "Política de privacidad: " . $GLOBALS['privacy_policies'];
@@ -116,7 +118,7 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
             
                     mail($to, $title, $msje, $headers);
             
-                    header('Location:'.URL_SITE.'/gracias.php?rad='. $idRadicado . '&t-doc=' . $tipoDocumento . '&n-doc=' . $numDocumento . '&etapa=Actualización Registro' . '&archivo=' . $archivoActStr);
+                    header('Location:'.URL_SITE.'/gracias.php?rad='. $idRadicado . '&t-doc=' . $tipoDocumento . '&n-doc=' . $numDocumento . '&etapa=Actualización Registro' . '&archivo=' . $archivoActStr . '&fecha=' . $fecha . '&hora=' . $hora);
                    
                 } catch (Exception $e) {
                     $to = EMAIL_ADMIN;
@@ -363,6 +365,8 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
         $etapa;
         $etapaMsje;
+        $fecha = date("Y-m-d");
+        $hora = date("H:i:s");
 
         if($tiposArchivos == "registro-act"){
             $etapa = "Etapa: " . $nombreCarpeta  . " Actualización" . "\n";
@@ -380,8 +384,8 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
         $msje .= "DATOS DE SUBIDA" . "\n";
         $msje .= $etapa;
         $msje .= "Documento cargado: " . $archivoSubidoStr  . "\n";
-        $msje .= "Fecha: " . date("Y-m-d") . "\n";
-        $msje .= "Hora: " . date("H:i:s") . "\n";
+        $msje .= "Fecha: " . $fecha . "\n";
+        $msje .= "Hora: " . $hora . "\n";
         $msje .= "Actividad exitosa" . "\n";
         $msje .= "ID Radicado: " . $idRadicado . "\n" ;
         // $msje .= "Política de privacidad: " . $GLOBALS['privacy_policies'];
@@ -390,7 +394,7 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
         mail($to, $title, $msje, $headers);
 
-        header('Location:'.URL_SITE.'/gracias.php?rad='. $idRadicado . '&t-doc=' . $tipoDocumento . '&n-doc=' . $numDocumento . '&etapa=' . $etapaMsje . '&archivo=' . $archivoSubidoStr);
+        header('Location:'.URL_SITE.'/gracias.php?rad='. $idRadicado . '&t-doc=' . $tipoDocumento . '&n-doc=' . $numDocumento . '&etapa=' . $etapaMsje . '&archivo=' . $archivoSubidoStr  . '&fecha=' . $fecha . '&hora=' . $hora);
     } else {
 
         $to = EMAIL_ADMIN;

@@ -56,6 +56,8 @@
                             <li><b>Etapa:</b> <?php echo $_GET['etapa']; ?></li>
                             <?php endif ?>
                             <li><b>Documento(s) cargado(s):</b> <?php echo $_GET['archivo']; ?></li>
+                            <li><b>Fecha:</b> <?php echo $_GET['fecha']; ?></li>
+                            <li><b>Hora:</b> <?php echo $_GET['hora']; ?></li>
                         </ul>
                     </div>
                 </div>
