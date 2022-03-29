@@ -11,7 +11,7 @@
         <div class="container">
             <div class="d-flex justify-content-between nav-container">
                 <div class="sb-nav-brand">
-                    <a href="https://www.superbidcolombia.com/"><img src="./static/logo-superbid.svg" alt="" class="img-fluid"></a>
+                    <a href="https://www.superbidcolombia.com/documentos/"><img src="./static/logo-superbid.svg" alt="" class="img-fluid"></a>
                 </div>
                 <div class="sb-nav-menu">
                     <ul class="nav justify-content-center mt-3 d-none d-lg-flex">
