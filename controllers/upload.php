@@ -112,7 +112,7 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
                     $msje .= "Hora: " . $hora . "\n";
                     $msje .= "Actividad exitosa" . "\n" . "\n";
                     $msje .= "ID Radicado: " . $idRadicado . "\n" . "\n";
-                    // $msje .= "Política de privacidad: " . $GLOBALS['privacy_policies'];
+                    $msje .= "Política de privacidad: " . $GLOBALS['privacy_policies'];
                     $headers = 'From: noreply@superbidcolombia.com' . "\r\n" .
                     'X-Mailer: PHP/' . phpversion();
             
@@ -128,7 +128,7 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
                     $msje .= "Hora: " . date("H:i:s") . "\n" . "\n";
                     $msje .= "Actividad fallida" . "\n" . "\n";
                     $msje .= "ID Radicado: " . $idRadicado . "\n" . "\n";
-                    // $msje .= "Política de privacidad: " . $GLOBALS['privacy_policies'];
+                    $msje .= "Política de privacidad: " . $GLOBALS['privacy_policies'];
                     $headers = 'From: notification <noreply@superbidcolombia.com>' . "\r\n" .
                     'Reply-To: noreply@superbidcolombia.com' . "\r\n" .
                     'X-Mailer: PHP/' . phpversion();
@@ -396,7 +396,7 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
         $msje .= "Hora: " . $hora . "\n";
         $msje .= "Actividad exitosa" . "\n";
         $msje .= "ID Radicado: " . $idRadicado . "\n" ;
-        // $msje .= "Política de privacidad: " . $GLOBALS['privacy_policies'];
+        $msje .= "Política de privacidad: " . $GLOBALS['privacy_policies'];
         $headers = 'From: noreply@superbidcolombia.com' . "\r\n" .
         'X-Mailer: PHP/' . phpversion();
 
