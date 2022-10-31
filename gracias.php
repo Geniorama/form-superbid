@@ -56,6 +56,9 @@
                             <li><b>Etapa:</b> <?php echo $_GET['etapa']; ?></li>
                             <?php endif ?>
                             <li><b>Documento(s) cargado(s):</b> <?php echo $_GET['archivo']; ?></li>
+                            <?php if(strlen($_GET['subasta']) > 0): ?>
+                            <li><b>Subasta:</b> <?php echo $_GET['subasta']; ?></li>
+                            <?php endif ?>
                             <li><b>Fecha:</b> <?php echo $_GET['fecha']; ?></li>
                             <li><b>Hora:</b> <?php echo $_GET['hora']; ?></li>
                         </ul>

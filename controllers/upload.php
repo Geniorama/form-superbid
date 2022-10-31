@@ -112,7 +112,7 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
                     $msje .= "Hora: " . $hora . "\n";
                     $msje .= "Actividad exitosa" . "\n" . "\n";
                     $msje .= "ID Radicado: " . $idRadicado . "\n" . "\n";
-                    // $msje .= "Política de privacidad: " . $GLOBALS['privacy_policies'];
+                    $msje .= "Política de privacidad: " . $GLOBALS['privacy_policies'];
                     $headers = 'From: noreply@superbidcolombia.com' . "\r\n" .
                     'X-Mailer: PHP/' . phpversion();
             
@@ -128,7 +128,7 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
                     $msje .= "Hora: " . date("H:i:s") . "\n" . "\n";
                     $msje .= "Actividad fallida" . "\n" . "\n";
                     $msje .= "ID Radicado: " . $idRadicado . "\n" . "\n";
-                    // $msje .= "Política de privacidad: " . $GLOBALS['privacy_policies'];
+                    $msje .= "Política de privacidad: " . $GLOBALS['privacy_policies'];
                     $headers = 'From: notification <noreply@superbidcolombia.com>' . "\r\n" .
                     'Reply-To: noreply@superbidcolombia.com' . "\r\n" .
                     'X-Mailer: PHP/' . phpversion();
@@ -376,6 +376,11 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
             $etapaMsje = $nombreCarpeta;
         }
 
+        $subasta;
+        if($tiposArchivos == "pagos" || $tiposArchivos == "garantia"){
+            $subasta = $nombreSubasta;
+        }
+
 
 
         $to = EMAIL_ADMIN;
@@ -384,17 +389,20 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
         $msje .= "DATOS DE SUBIDA" . "\n";
         $msje .= $etapa;
         $msje .= "Documento cargado: " . $archivoSubidoStr  . "\n";
+        if($tiposArchivos == "pagos" || $tiposArchivos == "garantia"){
+            $msje .= "Carpeta subasta: " . $subasta  . "\n";
+        }
         $msje .= "Fecha: " . $fecha . "\n";
         $msje .= "Hora: " . $hora . "\n";
         $msje .= "Actividad exitosa" . "\n";
         $msje .= "ID Radicado: " . $idRadicado . "\n" ;
-        // $msje .= "Política de privacidad: " . $GLOBALS['privacy_policies'];
+        $msje .= "Política de privacidad: " . $GLOBALS['privacy_policies'];
         $headers = 'From: noreply@superbidcolombia.com' . "\r\n" .
         'X-Mailer: PHP/' . phpversion();
 
         mail($to, $title, $msje, $headers);
 
-        header('Location:'.URL_SITE.'/gracias.php?rad='. $idRadicado . '&t-doc=' . $tipoDocumento . '&n-doc=' . $numDocumento . '&etapa=' . $etapaMsje . '&archivo=' . $archivoSubidoStr  . '&fecha=' . $fecha . '&hora=' . $hora);
+        header('Location:'.URL_SITE.'/gracias.php?rad='. $idRadicado . '&t-doc=' . $tipoDocumento . '&n-doc=' . $numDocumento . '&etapa=' . $etapaMsje . '&archivo=' . $archivoSubidoStr  . '&fecha=' . $fecha . '&hora=' . $hora . '&subasta=' . $subasta);
     } else {
 
         $to = EMAIL_ADMIN;
