@@ -253,8 +253,13 @@ if (!empty($_FILES) && $_SERVER['REQUEST_METHOD'] == "POST") {
                     'tempFile' => tempFile('rg-field-soporte-pago-fianza', 'SPF'),
                     'field' => 'Soporte pago fianza'
                 ];
+
+                $field_documentos_traspaso = [
+                    'tempFile' => tempFile('rg-field-documentos-traspaso', 'DTR'),
+                    'field' => 'Documentos Traspaso'
+                ];
     
-                $campos_pagos = array($field_carta_tercero, $field_soporte_pago_lote, $field_soporte_pago_comision, $field_soporte_pago_traspasos, $field_soporte_pago_fianza);
+                $campos_pagos = array($field_carta_tercero, $field_soporte_pago_lote, $field_soporte_pago_comision, $field_soporte_pago_traspasos, $field_soporte_pago_fianza, $field_documentos_traspaso);
     
                 foreach ($campos_pagos as $campo_pago) {
                     if($campo_pago['tempFile'] && $campo_pago['field']){
